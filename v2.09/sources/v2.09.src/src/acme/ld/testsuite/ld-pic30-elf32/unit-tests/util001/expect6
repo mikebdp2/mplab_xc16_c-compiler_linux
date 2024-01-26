@@ -1,0 +1,12 @@
+t1.o:      35 .symtab
+t1.o:      3d .strtab
+t1.o:      45 .shstrtab
+t1.o:      4f .text
+t1.o:      55 .data
+t1.o:      5b .bss
+t1.o:     209 __TARGET_DIVIDE_CYCLES
+t1.o:     220 __C30ELF
+t1.o:     229 .text
+t1.o:     22f .data
+t1.o:     235 .bss
+t1.o:     242 three

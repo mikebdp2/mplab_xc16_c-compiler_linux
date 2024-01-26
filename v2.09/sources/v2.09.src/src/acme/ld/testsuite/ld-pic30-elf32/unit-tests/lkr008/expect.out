@@ -1,0 +1,4 @@
+Excerpt from memory usage report:
+.bss                         0xc50                   0            0x10  (16)
+.ybss                        0xc30                   0            0x20  (32)
+.ydata                       0xc00                   0            0x30  (48)

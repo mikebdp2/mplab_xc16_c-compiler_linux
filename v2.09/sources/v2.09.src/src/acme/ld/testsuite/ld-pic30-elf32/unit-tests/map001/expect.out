@@ -1,0 +1,27 @@
+
+>>Simulator Output:
+
+8208: 0123456789
+8214: abcdefghijklmnopqrstuvwxyz
+81CA: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+81E6: !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+8230: abcdefABCDEF
+
+>>Linker Map File:
+
+                  0x0001ca                  LC2
+                  0x0001e6                  LC3
+                  0x000208                  LC0
+                  0x000214                  LC1
+                  0x000230                  LC4
+                  0x000208                  LC0
+                  0x000214                  LC1
+                  0x0001ca                  LC2
+                  0x0001e6                  LC3
+                  0x000230                  LC4
+                    0x81ca                  LC2
+                    0x81e6                  LC3
+                    0x8208                  LC0
+                    0x8214                  LC1
+                    0x8230                  LC4
+

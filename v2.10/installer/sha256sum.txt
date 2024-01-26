@@ -1,0 +1,5 @@
+fbd4fd3367b0850b16e3af77dbc795ca52cd387ed51c8d02e488ad1e0ab704b5  ./join_parts.sh
+d64d5e7391ec862d4dd169361b6680b725f8960435121709b45eb1a4afe15dc8  ./xc16-v2.10-full-install-linux64-installer.run
+04f9679bc085357799d3d749abb62e1f50e3fbf0fabf60ef6b6ff32987033026  ./xc16-v2.10-full-install-linux64-installer.run_part01
+be4b1b0ceebb006b129c21de46a1cf12b57c396b26dc53ae6b32e31cfbd68961  ./xc16-v2.10-full-install-linux64-installer.run_part02
+182ee56d3ec8cd1eda253b8109763b19177db54ba9f94225a678f3749480c54d  ./xc16-v2.10-full-install-linux64-installer.run_part03
