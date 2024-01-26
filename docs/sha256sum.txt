@@ -1,0 +1,7 @@
+ec16726ec570b2bd8c0a16e754663ebb13a0e6a2a719c13d9fa432a3d45ddabe  ./MPLAB-XC16-16-Bit-Language-Tools-Libraries-Reference-Manual-DS50001456.pdf
+dd0dd9add61513909a7688284ddb98bd89a3e2b881f117549a444642d8b3eb9f  ./MPLAB-XC16-Assembler-Linker-and-Utilities-Users-Guide-DS50002106.pdf
+2cc07afdd3ed4d40bd705adb687c7ff35f52eda9f7dd1009e3fed631872b67c8  ./MPLAB-XC16-C-Compiler-ReadMe-v209.html
+8e0969afb97e8f1bc9b33177e263da3c86f381b3fb80c742357b0b1dae00609d  ./MPLAB-XC16-C-Compiler-ReadMe-v210.html
+c4ff9f626363a9e85006a24d3d41905e05416d7ae86b2caf4e9cdb030d1790b1  ./MPLAB-XC16-C-Compiler-User-Guide-DS50002071.pdf
+f069a02eeca212808f2d6536f86f5e88188119d438cb68f1c40cc6abb9e872d3  ./MPLAB-XC16-User-Guide-for-Embedded-Engineers-Code-Examples.zip
+84ea1f03a852722251f3c2445265ee552320d606e8433ef23df69e0305780f7f  ./MPLAB-XC16-User-Guide-for-Embedded-Engineers-DS50002446C.pdf

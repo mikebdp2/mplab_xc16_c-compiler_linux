@@ -1,0 +1,3194 @@
+<html>
+<head>
+ 
+       <script src="jquery.js"></script>
+
+        <script>
+            (function ($) {
+                $.include = function (url) {
+                    $.ajax({
+                        url: url,
+                        async: false,
+                        success: function (result) {
+                            document.write(result);
+                        }
+                    });
+                };
+            }(jQuery));
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                alert($("#test").text());
+            });
+        </script>
+
+<title>Release Notes for MPLAB XC16 C Compiler v2.10</title>
+<style type="text/css">
+span {
+        font-family: Arial;
+        color: #000000;
+        background: #FFFFFF;
+        font-size: 10pt;
+}
+pre {
+        font-family: monospace;
+        color: #000000;
+        background: #FFFFFF;
+        font-size: 10pt;
+}
+p.Heading0, li.Heading0, div.Heading0, span.Heading0 {
+        font-size:14.0pt;
+        font-family:Arial;
+        font-weight:bold;
+}
+h1 {
+        margin-top:12.0pt;
+        margin-right:0in;
+        margin-bottom:3.0pt;
+        margin-left:.3in;
+        text-indent:-.3in;
+        page-break-after:avoid;
+        tab-stops:list .3in;
+        font-size:14.0pt;
+        font-family:Arial;
+}
+h2 {
+        margin-top:12.0pt;
+        margin-right:0in;
+        margin-bottom:3.0pt;
+        margin-left:.4in;
+        text-indent:-.4in;
+        page-break-after:avoid;
+        mso-outline-level:2;
+        tab-stops:list .4in;
+        font-size:12.0pt;
+        font-family:Arial;
+}
+DL, DT, ol, ul, li, DD {
+    list-style-position: outside;
+}
+pre {
+    font-family: monospace;
+    font-size: 10pt;
+}
+table {
+    font-size: 10pt;
+}
+</style>
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
+<span><div class=Heading0>Release Notes for MPLAB<sup>&reg;</sup> XC16 C 
+                          Compiler<br /></div>
+v2.10<br />
+ Mar 27 2023<br />
+<br />
+<div class=Heading0>Table of Contents</div>
+
+<ol>
+<li><a href="#Overview">Overview</a></li>
+<li><a href="#GPL">GNU General Public License</a></li>
+<li><a href="#OS">System Requirements</a></li>
+<li><a href="#Devices">Devices Supported</a></li>
+<li><a href="#Install">Installation and Upgrades</a></li>
+<li><a href="#FusaDocument">Functional Safety Manual</a></li>
+<li><a href="#Document">16-bit Language Tools Documentation</a></li>
+<li><a href="#WhatsNew">What's New in this Release</a></li>
+<li><a href="#Migration">Migration Issues</a></li>
+<li><a href="#DocUpdates">Documentation Updates</a></li>
+<li><a href="#Fixed">Fixed Issues</a></li>
+<li><a href="#Limitations">Limitations</a></li>
+<li><a href="#EnvChanges">Environment Variables Modified</a></li>
+<li><a href="#Support">Customer Support</a></li>
+</ol>
+
+<hr><br>
+
+<ol style="list-style-type:decimal;">
+<li class="Heading0"><h1><a name="Overview">
+Overview
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+
+<p>The 16-bit language tools consist of a compiler (xc16-gcc.exe), an
+   assembler (xc16-as.exe), a linker (xc16-ld.exe), and an archiver/
+   librarian (xc16-ar.exe). Additional tools distributed with this
+   release include a binary to Intel Hex converter (xc16-bin2hex.exe)
+   and a command-line simulator (sim30.exe).</p>
+
+<p>The 16-bit language tool official names are:
+   <ul><li>MPLAB XC16 C Compiler</li>
+       <li>MPLAB XC16 Assembler</li>
+       <li>MPLAB XC16 Object Linker</li>
+       <li>MPLAB XC16 Object Archiver/Librarian</li>
+   </ul>
+
+</p>
+<p>The command-line simulator (sim30.exe) included with the tools
+   may be used to test and debug C or assembly-language programs.
+   The simulator supports the complete PIC24/dsPIC&reg; instruction set, and a
+   restricted set of peripherals (two UARTS, five General Purpose
+   Timers, 10-bit A/D converter, 12-bit A/D converter, PWM, Input
+   Capture, Input Change Notification, I/O ports, Data RAM, Program
+   Flash, Data EEPROM, and an Interrupt Controller).</p>
+
+<p>As described in the user's guides, all of the language tools are
+   sensitive to case on the command-line, including the case of file
+   names. In particular, the C compiler shell (xc16-gcc) requires
+   that C source files be named on the command-line with a lower-case
+   .c extension. If an upper-case .C filename extension is used,
+   the compiler assumes that the file is a C++ file, which is not
+   supported.</p>
+<p>If this release of the Microchip MPLAB XC16 C compiler is a functional safety
+   compiler, this compiler requires a functional safety license in order to 
+   operate.  Once activated, all optimization levels and compiler features 
+   are available.</p>
+
+</li>
+</span>
+<li class="Heading0"><h1><a name="GPL">
+GNU General Public License
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+
+<p>With the exceptions noted below, the 16-bit tools are written and
+   distributed under the GNU General Public License (GPL) which means
+   that its source code is freely distributed and available to the
+   public.</p>
+
+<p>The source for the tools under the GNU GPL may be downloaded
+   separately from the Microchip WWW web page. You may read the
+   GNU GPL in the file named COPYING located the top level of your
+   install directory. A general discussion of principles underlying
+   the GPL may be found at
+   <a href="https://www.gnu.org/copyleft">www.gnu.org/copyleft</a>.</p>
+
+<p>Exceptions to the GNU GPL:</p>
+<ul>
+<li>   xc16-pa</li>
+<li>   sim30</li>
+</ul>
+
+<p>Support code provided for the header files, linker scripts, and
+   run-time libraries are also exceptions to the GPL, and therefore not
+   covered under the GPL.</p>
+
+</li>
+</span>
+<li class="Heading0"><h1><a name="OS">
+System Requirements
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+
+<ul>
+<li>
+  <p>The MPLAB XC C compiler and the licensing software they utilize are 
+available for a variety of operating systems, including 64-bit  versions of the
+ following: Professional editions of Microsoft Windows 10; Ubuntu 18.04;  and  
+MacOS  10.15.1  Catalina.</p></li>
+<li>
+  <p>If you are running a network license server, only computers with operating 
+  systems supported by the compilers may be used to host the license server. As 
+  of xclm version 2.0, the network license server can be installed on a 
+  Microsoft Windows Server platform, but the license server does not need to 
+  run on a server version of the operating system.</p></li>
+</ul>
+</li>
+</span>
+<li class="Heading0"><h1><a name="Devices">
+Devices Supported
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+<p class="c1">
+  <strong>Part Support via <em>Device Family Packs (DFPs)</em></strong> 
+  -- Part support files such as the default device-specific startup code and 
+     linker script are packaged with the compiler. However, when building a 
+     project in MPLAB X v5.30 and later, these files are packaged in a 
+     "pack", known as a <a target="external" 
+     href= "https://microchipdeveloper.com/mplabx:projects-packs">
+     Device Family Pack (DFP)</a>. This means that part-support files are 
+     decoupled from an XC16 compiler toolchain release and can therefore be 
+     added and updated for bug fixes and improvements outside of a full XC16 
+     release. The DFP location is passed to XC16 via the 
+     <tt>-mdfp=</tt><em>path</em> option.  See the pack manager in MPLAB X 
+     for details about available DFPs. You can also download DFPs outside of 
+     MPLAB X by visiting <a target="external" 
+     href= "https://packs.download.microchip.com/">
+     https://packs.download.microchip.com</a> in your favorite web browser.</p>
+
+<!-- snip -->
+<div name="output.html">
+<p>The following <b>24EP GP </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> <th>512K devices</th> 
+</tr> 
+<tr>  <td> 24EP32GP202</td> <td> 24EP64GP202</td> <td> 24EP128GP202</td> <td> 24EP256GP202</td> <td> 24EP512GP202</td></tr>
+<tr>  <td> 24EP32GP203</td> <td> 24EP64GP203</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 24EP32GP204</td> <td> 24EP64GP204</td> <td> 24EP128GP204</td> <td> 24EP256GP204</td> <td> 24EP512GP204</td></tr>
+<tr>  <td></td>  <td> 24EP64GP206</td> <td> 24EP128GP206</td> <td> 24EP256GP206</td> <td> 24EP512GP206</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 24EP512GP806</td></tr>
+</table>
+<p>The following <b>24EP GU </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>256K devices</th> <th>512K devices</th> 
+</tr> 
+<tr>  <td> 24EP256GU810</td> <td> 24EP512GU810</td></tr>
+<tr>  <td> 24EP256GU814</td> <td> 24EP512GU814</td></tr>
+</table>
+<p>The following <b>24EP MC </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> <th>512K devices</th> 
+</tr> 
+<tr>  <td> 24EP32MC202</td> <td> 24EP64MC202</td> <td> 24EP128MC202</td> <td> 24EP256MC202</td> <td> 24EP512MC202</td></tr>
+<tr>  <td> 24EP32MC203</td> <td> 24EP64MC203</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 24EP32MC204</td> <td> 24EP64MC204</td> <td> 24EP128MC204</td> <td> 24EP256MC204</td> <td> 24EP512MC204</td></tr>
+<tr>  <td></td>  <td> 24EP64MC206</td> <td> 24EP128MC206</td> <td> 24EP256MC206</td> <td> 24EP512MC206</td></tr>
+</table>
+<p>The following <b>24F KA </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>  4K devices</th> <th>  8K devices</th> <th> 16K devices</th> <th> 32K devices</th> 
+</tr> 
+<tr>  <td></td>  <td> 24F08KA101</td> <td> 24F16KA101</td> <td></td> </tr>
+<tr>  <td></td>  <td> 24F08KA102</td> <td> 24F16KA102</td> <td></td> </tr>
+<tr>  <td> 24F04KA200</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 24F04KA201</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 24F16KA301</td> <td> 24F32KA301</td></tr>
+<tr>  <td></td>  <td></td>  <td> 24F16KA302</td> <td> 24F32KA302</td></tr>
+<tr>  <td></td>  <td></td>  <td> 24F16KA304</td> <td> 24F32KA304</td></tr>
+</table>
+<p>The following <b>24F KL </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>  4K devices</th> <th>  8K devices</th> <th> 16K devices</th> 
+</tr> 
+<tr>  <td> 24F04KL100</td> <td></td>  <td></td> </tr>
+<tr>  <td> 24F04KL101</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24F08KL200</td> <td></td> </tr>
+<tr>  <td></td>  <td> 24F08KL201</td> <td></td> </tr>
+<tr>  <td></td>  <td> 24F08KL301</td> <td></td> </tr>
+<tr>  <td></td>  <td> 24F08KL302</td> <td></td> </tr>
+<tr>  <td></td>  <td> 24F08KL401</td> <td> 24F16KL401</td></tr>
+<tr>  <td></td>  <td> 24F08KL402</td> <td> 24F16KL402</td></tr>
+</table>
+<p>The following <b>24F KM </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>  8K devices</th> <th> 16K devices</th> 
+</tr> 
+<tr>  <td> 24F08KM101</td> <td></td> </tr>
+<tr>  <td> 24F08KM102</td> <td> 24F16KM102</td></tr>
+<tr>  <td></td>  <td> 24F16KM104</td></tr>
+<tr>  <td> 24F08KM202</td> <td> 24F16KM202</td></tr>
+<tr>  <td> 24F08KM204</td> <td> 24F16KM204</td></tr>
+</table>
+<p>The following <b>24FJ DA </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>128K devices</th> <th>256K devices</th> 
+</tr> 
+<tr>  <td> 24FJ128DA106</td> <td> 24FJ256DA106</td></tr>
+<tr>  <td> 24FJ128DA110</td> <td> 24FJ256DA110</td></tr>
+<tr>  <td> 24FJ128DA206</td> <td> 24FJ256DA206</td></tr>
+<tr>  <td> 24FJ128DA210</td> <td> 24FJ256DA210</td></tr>
+</table>
+<p>The following <b>24FJ GA </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 16K devices</th> <th> 32K devices</th> <th> 48K devices</th> <th> 64K devices</th> <th> 96K devices</th> <th>128K devices</th> <th>192K devices</th> <th>256K devices</th> <th>512K devices</th> <th>1024K devices</th> 
+</tr> 
+<tr>  <td> 24FJ16GA002</td> <td> 24FJ32GA002</td> <td> 24FJ48GA002</td> <td> 24FJ64GA002</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 24FJ16GA004</td> <td> 24FJ32GA004</td> <td> 24FJ48GA004</td> <td> 24FJ64GA004</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA006</td> <td> 24FJ96GA006</td> <td> 24FJ128GA006</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA008</td> <td> 24FJ96GA008</td> <td> 24FJ128GA008</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA010</td> <td> 24FJ96GA010</td> <td> 24FJ128GA010</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24FJ32GA102</td> <td></td>  <td> 24FJ64GA102</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24FJ32GA104</td> <td></td>  <td> 24FJ64GA104</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA106</td> <td></td>  <td> 24FJ128GA106</td> <td> 24FJ192GA106</td> <td> 24FJ256GA106</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA108</td> <td></td>  <td> 24FJ128GA108</td> <td> 24FJ192GA108</td> <td> 24FJ256GA108</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA110</td> <td></td>  <td> 24FJ128GA110</td> <td> 24FJ192GA110</td> <td> 24FJ256GA110</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA202</td> <td></td>  <td> 24FJ128GA202</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA204</td> <td></td>  <td> 24FJ128GA204</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA306</td> <td></td>  <td> 24FJ128GA306</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA308</td> <td></td>  <td> 24FJ128GA308</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA310</td> <td></td>  <td> 24FJ128GA310</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA406</td> <td></td>  <td> 24FJ128GA406</td> <td></td>  <td> 24FJ256GA406</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA410</td> <td></td>  <td> 24FJ128GA410</td> <td></td>  <td> 24FJ256GA410</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA412</td> <td></td>  <td> 24FJ128GA412</td> <td></td>  <td> 24FJ256GA412</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 24FJ128GA606</td> <td></td>  <td> 24FJ256GA606</td> <td> 24FJ512GA606</td> <td> 24FJ1024GA606</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 24FJ128GA610</td> <td></td>  <td> 24FJ256GA610</td> <td> 24FJ512GA610</td> <td> 24FJ1024GA610</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA702</td> <td></td>  <td> 24FJ128GA702</td> <td></td>  <td> 24FJ256GA702</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA704</td> <td></td>  <td> 24FJ128GA704</td> <td></td>  <td> 24FJ256GA704</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24FJ64GA705</td> <td></td>  <td> 24FJ128GA705</td> <td></td>  <td> 24FJ256GA705</td> <td></td>  <td></td> </tr>
+</table>
+<p>The following <b>24FJ GB </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> <th>192K devices</th> <th>256K devices</th> <th>512K devices</th> <th>1024K devices</th> 
+</tr> 
+<tr>  <td> 24FJ32GB002</td> <td> 24FJ64GB002</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 24FJ32GB004</td> <td> 24FJ64GB004</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24FJ64GB106</td> <td> 24FJ128GB106</td> <td> 24FJ192GB106</td> <td> 24FJ256GB106</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24FJ64GB108</td> <td> 24FJ128GB108</td> <td> 24FJ192GB108</td> <td> 24FJ256GB108</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24FJ64GB110</td> <td> 24FJ128GB110</td> <td> 24FJ192GB110</td> <td> 24FJ256GB110</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24FJ64GB202</td> <td> 24FJ128GB202</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24FJ64GB204</td> <td> 24FJ128GB204</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 24FJ128GB206</td> <td></td>  <td> 24FJ256GB206</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 24FJ128GB210</td> <td></td>  <td> 24FJ256GB210</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24FJ64GB406</td> <td> 24FJ128GB406</td> <td></td>  <td> 24FJ256GB406</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24FJ64GB410</td> <td> 24FJ128GB410</td> <td></td>  <td> 24FJ256GB410</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24FJ64GB412</td> <td> 24FJ128GB412</td> <td></td>  <td> 24FJ256GB412</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 24FJ128GB606</td> <td></td>  <td> 24FJ256GB606</td> <td> 24FJ512GB606</td> <td> 24FJ1024GB606</td></tr>
+<tr>  <td></td>  <td></td>  <td> 24FJ128GB610</td> <td></td>  <td> 24FJ256GB610</td> <td> 24FJ512GB610</td> <td> 24FJ1024GB610</td></tr>
+</table>
+<p>The following <b>24FJ GC </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 64K devices</th> <th>128K devices</th> 
+</tr> 
+<tr>  <td> 24FJ64GC006</td> <td> 24FJ128GC006</td></tr>
+<tr>  <td> 24FJ64GC010</td> <td> 24FJ128GC010</td></tr>
+</table>
+<p>The following <b>24FJ GL </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> <th>512K devices</th> 
+</tr> 
+<tr>  <td> 24FJ64GL302</td> <td> 24FJ128GL302</td> <td></td>  <td></td> </tr>
+<tr>  <td> 24FJ64GL303</td> <td> 24FJ128GL303</td> <td></td>  <td></td> </tr>
+<tr>  <td> 24FJ64GL305</td> <td> 24FJ128GL305</td> <td></td>  <td></td> </tr>
+<tr>  <td> 24FJ64GL306</td> <td> 24FJ128GL306</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24FJ128GL405</td> <td> 24FJ256GL405</td> <td> 24FJ512GL405</td></tr>
+<tr>  <td></td>  <td> 24FJ128GL406</td> <td> 24FJ256GL406</td> <td> 24FJ512GL406</td></tr>
+<tr>  <td></td>  <td> 24FJ128GL408</td> <td> 24FJ256GL408</td> <td> 24FJ512GL408</td></tr>
+<tr>  <td></td>  <td> 24FJ128GL410</td> <td> 24FJ256GL410</td> <td> 24FJ512GL410</td></tr>
+</table>
+<p>The following <b>24FJ GP </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 32K devices</th> <th> 64K devices</th> 
+</tr> 
+<tr>  <td> 24FJ32GP202</td> <td> 24FJ64GP202</td></tr>
+<tr>  <td> 24FJ32GP203</td> <td> 24FJ64GP203</td></tr>
+<tr>  <td> 24FJ32GP205</td> <td> 24FJ64GP205</td></tr>
+</table>
+<p>The following <b>24FJ GU </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> <th>512K devices</th> 
+</tr> 
+<tr>  <td> 24FJ32GU202</td> <td> 24FJ64GU202</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 24FJ32GU203</td> <td> 24FJ64GU203</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 24FJ32GU205</td> <td> 24FJ64GU205</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 24FJ128GU405</td> <td> 24FJ256GU405</td> <td> 24FJ512GU405</td></tr>
+<tr>  <td></td>  <td></td>  <td> 24FJ128GU406</td> <td> 24FJ256GU406</td> <td> 24FJ512GU406</td></tr>
+<tr>  <td></td>  <td></td>  <td> 24FJ128GU408</td> <td> 24FJ256GU408</td> <td> 24FJ512GU408</td></tr>
+<tr>  <td></td>  <td></td>  <td> 24FJ128GU410</td> <td> 24FJ256GU410</td> <td> 24FJ512GU410</td></tr>
+</table>
+<p>The following <b>24FJ MC </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 16K devices</th> <th> 32K devices</th> 
+</tr> 
+<tr>  <td> 24FJ16MC101</td> <td> 24FJ32MC101</td></tr>
+<tr>  <td> 24FJ16MC102</td> <td> 24FJ32MC102</td></tr>
+<tr>  <td></td>  <td> 24FJ32MC104</td></tr>
+</table>
+<p>The following <b>24FV KA </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 16K devices</th> <th> 32K devices</th> 
+</tr> 
+<tr>  <td> 24FV16KA301</td> <td> 24FV32KA301</td></tr>
+<tr>  <td> 24FV16KA302</td> <td> 24FV32KA302</td></tr>
+<tr>  <td> 24FV16KA304</td> <td> 24FV32KA304</td></tr>
+</table>
+<p>The following <b>24FV KM </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>  8K devices</th> <th> 16K devices</th> 
+</tr> 
+<tr>  <td> 24FV08KM101</td> <td></td> </tr>
+<tr>  <td> 24FV08KM102</td> <td> 24FV16KM102</td></tr>
+<tr>  <td></td>  <td> 24FV16KM104</td></tr>
+<tr>  <td> 24FV08KM202</td> <td> 24FV16KM202</td></tr>
+<tr>  <td> 24FV08KM204</td> <td> 24FV16KM204</td></tr>
+</table>
+<p>The following <b>24HJ GP </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 12K devices</th> <th> 16K devices</th> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> 
+</tr> 
+<tr>  <td> 24HJ12GP201</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 24HJ12GP202</td> <td></td>  <td> 24HJ32GP202</td> <td> 24HJ64GP202</td> <td> 24HJ128GP202</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 24HJ32GP204</td> <td> 24HJ64GP204</td> <td> 24HJ128GP204</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24HJ64GP206[A]</td> <td> 24HJ128GP206[A]</td> <td> 24HJ256GP206[A]</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24HJ64GP210[A]</td> <td> 24HJ128GP210[A]</td> <td> 24HJ256GP210[A]</td></tr>
+<tr>  <td></td>  <td></td>  <td> 24HJ32GP302</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 24HJ16GP304</td> <td> 24HJ32GP304</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 24HJ128GP306[A]</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 24HJ128GP310[A]</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24HJ64GP502</td> <td> 24HJ128GP502</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24HJ64GP504</td> <td> 24HJ128GP504</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24HJ64GP506[A]</td> <td> 24HJ128GP506[A]</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 24HJ64GP510[A]</td> <td> 24HJ128GP510[A]</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 24HJ256GP610[A]</td></tr>
+</table>
+<p>The following <b>30F </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>30F10xx</th> <th>30F20xx</th> <th>30F30xx</th> <th>30F40xx</th> <th>30F50xx</th> <th>30F60xx</th> 
+</tr> 
+<tr>  <td> 30F1010</td> <td> 30F2010</td> <td> 30F3010</td> <td></td>  <td></td>  <td> 30F6010[A]</td></tr>
+<tr>  <td></td>  <td> 30F2011</td> <td> 30F3011</td> <td> 30F4011</td> <td> 30F5011</td> <td> 30F6011[A]</td></tr>
+<tr>  <td></td>  <td> 30F2012</td> <td> 30F3012</td> <td> 30F4012</td> <td></td>  <td> 30F6012[A]</td></tr>
+<tr>  <td></td>  <td></td>  <td> 30F3013</td> <td> 30F4013</td> <td> 30F5013</td> <td> 30F6013[A]</td></tr>
+<tr>  <td></td>  <td></td>  <td> 30F3014</td> <td></td>  <td></td>  <td> 30F6014[A]</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 30F5015</td> <td> 30F6015</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 30F5016</td> <td></td> </tr>
+<tr>  <td></td>  <td> 30F2020</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 30F2023</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+</table>
+<p>The following <b>33CDV MC </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 64K devices</th> 
+</tr> 
+<tr>  <td> 33CDV64MC106</td></tr>
+</table>
+<p>The following <b>33CDV MP </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>128K devices</th> <th>256K devices</th> 
+</tr> 
+<tr>  <td> 33CDV128MP506</td> <td> 33CDV256MP506</td></tr>
+</table>
+<p>The following <b>33CDVC MP </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>128K devices</th> <th>256K devices</th> 
+</tr> 
+<tr>  <td> 33CDVC128MP506</td> <td> 33CDVC256MP506</td></tr>
+</table>
+<p>The following <b>33CDVL MC </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 64K devices</th> 
+</tr> 
+<tr>  <td> 33CDVL64MC106</td></tr>
+</table>
+<p>The following <b>33CH MP </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> <th>512K devices</th> 
+</tr> 
+<tr>  <td> 33CH64MP202[S1]</td> <td> 33CH128MP202[S1]</td> <td></td>  <td></td> </tr>
+<tr>  <td> 33CH64MP203[S1]</td> <td> 33CH128MP203[S1]</td> <td></td>  <td></td> </tr>
+<tr>  <td> 33CH64MP205[S1]</td> <td> 33CH128MP205[S1]</td> <td> 33CH256MP205[S1]</td> <td> 33CH512MP205[S1]</td></tr>
+<tr>  <td> 33CH64MP206[S1]</td> <td> 33CH128MP206[S1]</td> <td> 33CH256MP206[S1]</td> <td> 33CH512MP206[S1]</td></tr>
+<tr>  <td> 33CH64MP208[S1]</td> <td> 33CH128MP208[S1]</td> <td> 33CH256MP208[S1]</td> <td> 33CH512MP208[S1]</td></tr>
+<tr>  <td></td>  <td></td>  <td> 33CH256MP218[S1]</td> <td></td> </tr>
+<tr>  <td> 33CH64MP502[S1]</td> <td> 33CH128MP502[S1]</td> <td></td>  <td></td> </tr>
+<tr>  <td> 33CH64MP503[S1]</td> <td> 33CH128MP503[S1]</td> <td></td>  <td></td> </tr>
+<tr>  <td> 33CH64MP505[S1]</td> <td> 33CH128MP505[S1]</td> <td> 33CH256MP505[S1]</td> <td> 33CH512MP505[S1]</td></tr>
+<tr>  <td> 33CH64MP506[S1]</td> <td> 33CH128MP506[S1]</td> <td> 33CH256MP506[S1]</td> <td> 33CH512MP506[S1]</td></tr>
+<tr>  <td> 33CH64MP508[S1]</td> <td> 33CH128MP508[S1]</td> <td> 33CH256MP508[S1]</td> <td> 33CH512MP508[S1]</td></tr>
+</table>
+<p>The following <b>33CK MC </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> 
+</tr> 
+<tr>  <td> 33CK32MC102</td> <td> 33CK64MC102</td> <td> 33CK128MC102</td> <td> 33CK256MC102</td></tr>
+<tr>  <td> 33CK32MC103</td> <td> 33CK64MC103</td> <td> 33CK128MC103</td> <td> 33CK256MC103</td></tr>
+<tr>  <td> 33CK32MC105</td> <td> 33CK64MC105</td> <td> 33CK128MC105</td> <td> 33CK256MC105</td></tr>
+<tr>  <td></td>  <td></td>  <td> 33CK128MC106</td> <td> 33CK256MC106</td></tr>
+<tr>  <td></td>  <td></td>  <td> 33CK128MC502</td> <td> 33CK256MC502</td></tr>
+<tr>  <td></td>  <td></td>  <td> 33CK128MC503</td> <td> 33CK256MC503</td></tr>
+<tr>  <td></td>  <td></td>  <td> 33CK128MC505</td> <td> 33CK256MC505</td></tr>
+<tr>  <td></td>  <td></td>  <td> 33CK128MC506</td> <td> 33CK256MC506</td></tr>
+</table>
+<p>The following <b>33CK MP </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> <th>512K devices</th> <th>1024K devices</th> 
+</tr> 
+<tr>  <td> 33CK32MP102</td> <td> 33CK64MP102</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33CK32MP103</td> <td> 33CK64MP103</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33CK32MP105</td> <td> 33CK64MP105</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33CK32MP202</td> <td> 33CK64MP202</td> <td> 33CK128MP202</td> <td> 33CK256MP202</td> <td></td>  <td></td> </tr>
+<tr>  <td> 33CK32MP203</td> <td> 33CK64MP203</td> <td> 33CK128MP203</td> <td> 33CK256MP203</td> <td></td>  <td></td> </tr>
+<tr>  <td> 33CK32MP205</td> <td> 33CK64MP205</td> <td> 33CK128MP205</td> <td> 33CK256MP205</td> <td></td>  <td></td> </tr>
+<tr>  <td> 33CK32MP206</td> <td> 33CK64MP206</td> <td> 33CK128MP206</td> <td> 33CK256MP206</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 33CK64MP208</td> <td> 33CK128MP208</td> <td> 33CK256MP208</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP305</td> <td> 33CK512MP305</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP306</td> <td> 33CK512MP306</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP308</td> <td> 33CK512MP308</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP405</td> <td> 33CK512MP405</td> <td> 33CK1024MP405</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP406</td> <td> 33CK512MP406</td> <td> 33CK1024MP406</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP408</td> <td> 33CK512MP408</td> <td> 33CK1024MP408</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP410</td> <td> 33CK512MP410</td> <td> 33CK1024MP410</td></tr>
+<tr>  <td> 33CK32MP502</td> <td> 33CK64MP502</td> <td> 33CK128MP502</td> <td> 33CK256MP502</td> <td></td>  <td></td> </tr>
+<tr>  <td> 33CK32MP503</td> <td> 33CK64MP503</td> <td> 33CK128MP503</td> <td> 33CK256MP503</td> <td></td>  <td></td> </tr>
+<tr>  <td> 33CK32MP505</td> <td> 33CK64MP505</td> <td> 33CK128MP505</td> <td> 33CK256MP505</td> <td></td>  <td></td> </tr>
+<tr>  <td> 33CK32MP506</td> <td> 33CK64MP506</td> <td> 33CK128MP506</td> <td> 33CK256MP506</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 33CK64MP508</td> <td> 33CK128MP508</td> <td> 33CK256MP508</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP605</td> <td> 33CK512MP605</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP606</td> <td> 33CK512MP606</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP608</td> <td> 33CK512MP608</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP705</td> <td> 33CK512MP705</td> <td> 33CK1024MP705</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP706</td> <td> 33CK512MP706</td> <td> 33CK1024MP706</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP708</td> <td> 33CK512MP708</td> <td> 33CK1024MP708</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33CK256MP710</td> <td> 33CK512MP710</td> <td> 33CK1024MP710</td></tr>
+</table>
+<p>The following <b>33CK MPT </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>256K devices</th> <th>512K devices</th> 
+</tr> 
+<tr>  <td> 33CK256MPT608</td> <td> 33CK512MPT608</td></tr>
+</table>
+<p>The following <b>33EDV MC </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 64K devices</th> 
+</tr> 
+<tr>  <td> 33EDV64MC205</td></tr>
+</table>
+<p>The following <b>33EP GM </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>128K devices</th> <th>256K devices</th> <th>512K devices</th> 
+</tr> 
+<tr>  <td> 33EP128GM304</td> <td> 33EP256GM304</td> <td> 33EP512GM304</td></tr>
+<tr>  <td> 33EP128GM306</td> <td> 33EP256GM306</td> <td> 33EP512GM306</td></tr>
+<tr>  <td> 33EP128GM310</td> <td> 33EP256GM310</td> <td> 33EP512GM310</td></tr>
+<tr>  <td> 33EP128GM604</td> <td> 33EP256GM604</td> <td> 33EP512GM604</td></tr>
+<tr>  <td> 33EP128GM706</td> <td> 33EP256GM706</td> <td> 33EP512GM706</td></tr>
+<tr>  <td> 33EP128GM710</td> <td> 33EP256GM710</td> <td> 33EP512GM710</td></tr>
+</table>
+<p>The following <b>33EP GP </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> <th>512K devices</th> 
+</tr> 
+<tr>  <td> 33EP32GP502</td> <td> 33EP64GP502</td> <td> 33EP128GP502</td> <td> 33EP256GP502</td> <td> 33EP512GP502</td></tr>
+<tr>  <td> 33EP32GP503</td> <td> 33EP64GP503</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33EP32GP504</td> <td> 33EP64GP504</td> <td> 33EP128GP504</td> <td> 33EP256GP504</td> <td> 33EP512GP504</td></tr>
+<tr>  <td></td>  <td> 33EP64GP506</td> <td> 33EP128GP506</td> <td> 33EP256GP506</td> <td> 33EP512GP506</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 33EP512GP806</td></tr>
+</table>
+<p>The following <b>33EP GS </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 16K devices</th> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> 
+</tr> 
+<tr>  <td> 33EP16GS202</td> <td> 33EP32GS202</td> <td></td>  <td></td> </tr>
+<tr>  <td> 33EP16GS502</td> <td> 33EP32GS502</td> <td> 33EP64GS502</td> <td></td> </tr>
+<tr>  <td> 33EP16GS504</td> <td> 33EP32GS504</td> <td> 33EP64GS504</td> <td></td> </tr>
+<tr>  <td> 33EP16GS505</td> <td> 33EP32GS505</td> <td> 33EP64GS505</td> <td></td> </tr>
+<tr>  <td> 33EP16GS506</td> <td> 33EP32GS506</td> <td> 33EP64GS506</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33EP128GS702</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33EP128GS704</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33EP128GS705</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33EP128GS706</td></tr>
+<tr>  <td></td>  <td></td>  <td> 33EP64GS708</td> <td> 33EP128GS708</td></tr>
+<tr>  <td></td>  <td></td>  <td> 33EP64GS804</td> <td> 33EP128GS804</td></tr>
+<tr>  <td></td>  <td></td>  <td> 33EP64GS805</td> <td> 33EP128GS805</td></tr>
+<tr>  <td></td>  <td></td>  <td> 33EP64GS806</td> <td> 33EP128GS806</td></tr>
+<tr>  <td></td>  <td></td>  <td> 33EP64GS808</td> <td> 33EP128GS808</td></tr>
+</table>
+<p>The following <b>33EP MC </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> <th>512K devices</th> 
+</tr> 
+<tr>  <td> 33EP32MC202</td> <td> 33EP64MC202</td> <td> 33EP128MC202</td> <td> 33EP256MC202</td> <td> 33EP512MC202</td></tr>
+<tr>  <td> 33EP32MC203</td> <td> 33EP64MC203</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33EP32MC204</td> <td> 33EP64MC204</td> <td> 33EP128MC204</td> <td> 33EP256MC204</td> <td> 33EP512MC204</td></tr>
+<tr>  <td></td>  <td> 33EP64MC206</td> <td> 33EP128MC206</td> <td> 33EP256MC206</td> <td> 33EP512MC206</td></tr>
+<tr>  <td> 33EP32MC502</td> <td> 33EP64MC502</td> <td> 33EP128MC502</td> <td> 33EP256MC502</td> <td> 33EP512MC502</td></tr>
+<tr>  <td> 33EP32MC503</td> <td> 33EP64MC503</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33EP32MC504</td> <td> 33EP64MC504</td> <td> 33EP128MC504</td> <td> 33EP256MC504</td> <td> 33EP512MC504</td></tr>
+<tr>  <td></td>  <td> 33EP64MC506</td> <td> 33EP128MC506</td> <td> 33EP256MC506</td> <td> 33EP512MC506</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 33EP512MC806</td></tr>
+</table>
+<p>The following <b>33EP MU </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>256K devices</th> <th>512K devices</th> 
+</tr> 
+<tr>  <td> 33EP256MU806</td> <td></td> </tr>
+<tr>  <td> 33EP256MU810</td> <td> 33EP512MU810</td></tr>
+<tr>  <td> 33EP256MU814</td> <td> 33EP512MU814</td></tr>
+</table>
+<p>The following <b>33EV GM </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> 
+</tr> 
+<tr>  <td> 33EV32GM002</td> <td> 33EV64GM002</td> <td> 33EV128GM002</td> <td> 33EV256GM002</td></tr>
+<tr>  <td> 33EV32GM003</td> <td> 33EV64GM003</td> <td> 33EV128GM003</td> <td> 33EV256GM003</td></tr>
+<tr>  <td> 33EV32GM004</td> <td> 33EV64GM004</td> <td> 33EV128GM004</td> <td> 33EV256GM004</td></tr>
+<tr>  <td> 33EV32GM006</td> <td> 33EV64GM006</td> <td> 33EV128GM006</td> <td> 33EV256GM006</td></tr>
+<tr>  <td> 33EV32GM102</td> <td> 33EV64GM102</td> <td> 33EV128GM102</td> <td> 33EV256GM102</td></tr>
+<tr>  <td> 33EV32GM103</td> <td> 33EV64GM103</td> <td> 33EV128GM103</td> <td> 33EV256GM103</td></tr>
+<tr>  <td> 33EV32GM104</td> <td> 33EV64GM104</td> <td> 33EV128GM104</td> <td> 33EV256GM104</td></tr>
+<tr>  <td> 33EV32GM106</td> <td> 33EV64GM106</td> <td> 33EV128GM106</td> <td> 33EV256GM106</td></tr>
+</table>
+<p>The following <b>33FJ GP </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 12K devices</th> <th> 16K devices</th> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> 
+</tr> 
+<tr>  <td></td>  <td> 33FJ16GP101</td> <td> 33FJ32GP101</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 33FJ16GP102</td> <td> 33FJ32GP102</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 33FJ32GP104</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33FJ12GP201</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33FJ12GP202</td> <td></td>  <td> 33FJ32GP202</td> <td> 33FJ64GP202</td> <td> 33FJ128GP202</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 33FJ32GP204</td> <td> 33FJ64GP204</td> <td> 33FJ128GP204</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64GP206[A]</td> <td> 33FJ128GP206[A]</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 33FJ32GP302</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 33FJ16GP304</td> <td> 33FJ32GP304</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64GP306[A]</td> <td> 33FJ128GP306[A]</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64GP310[A]</td> <td> 33FJ128GP310[A]</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 33FJ256GP506[A]</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 33FJ256GP510[A]</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64GP706[A]</td> <td> 33FJ128GP706[A]</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64GP708[A]</td> <td> 33FJ128GP708[A]</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64GP710[A]</td> <td> 33FJ128GP710[A]</td> <td> 33FJ256GP710[A]</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64GP802</td> <td> 33FJ128GP802</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64GP804</td> <td> 33FJ128GP804</td> <td></td> </tr>
+</table>
+<p>The following <b>33FJ GS </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th>  6K devices</th> <th>  9K devices</th> <th> 16K devices</th> <th> 32K devices</th> <th> 64K devices</th> 
+</tr> 
+<tr>  <td> 33FJ06GS001</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33FJ06GS101[A]</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33FJ06GS102[A]</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33FJ06GS202[A]</td> <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 33FJ09GS302</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 33FJ16GS402</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 33FJ16GS404</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ32GS406</td> <td> 33FJ64GS406</td></tr>
+<tr>  <td></td>  <td></td>  <td> 33FJ16GS502</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 33FJ16GS504</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ32GS606</td> <td> 33FJ64GS606</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ32GS608</td> <td> 33FJ64GS608</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ32GS610</td> <td> 33FJ64GS610</td></tr>
+</table>
+<p>The following <b>33FJ MC </b>devices are supported:<p>
+<table frame=box rules=cols cellpadding=3>
+<tr> <th> 12K devices</th> <th> 16K devices</th> <th> 32K devices</th> <th> 64K devices</th> <th>128K devices</th> <th>256K devices</th> 
+</tr> 
+<tr>  <td></td>  <td> 33FJ16MC101</td> <td> 33FJ32MC101</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 33FJ16MC102</td> <td> 33FJ32MC102</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 33FJ32MC104</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33FJ12MC201</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td> 33FJ12MC202</td> <td></td>  <td> 33FJ32MC202</td> <td> 33FJ64MC202</td> <td> 33FJ128MC202</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 33FJ32MC204</td> <td> 33FJ64MC204</td> <td> 33FJ128MC204</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td> 33FJ32MC302</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td> 33FJ16MC304</td> <td> 33FJ32MC304</td> <td></td>  <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64MC506[A]</td> <td> 33FJ128MC506[A]</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64MC508[A]</td> <td></td>  <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64MC510[A]</td> <td> 33FJ128MC510[A]</td> <td> 33FJ256MC510[A]</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64MC706[A]</td> <td> 33FJ128MC706[A]</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td></td>  <td> 33FJ128MC708[A]</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64MC710[A]</td> <td> 33FJ128MC710[A]</td> <td> 33FJ256MC710[A]</td></tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64MC802</td> <td> 33FJ128MC802</td> <td></td> </tr>
+<tr>  <td></td>  <td></td>  <td></td>  <td> 33FJ64MC804</td> <td> 33FJ128MC804</td> <td></td> </tr>
+</table>
+</div>
+<!-- snip -->
+
+<p>The following 'virtual' devices are supported:</p>
+<ul>
+<li>   generic-16bit &nbsp- this device can be used to represent a generic
+                       core device without DSP instructions (no peripherals of 
+                       any kind)</li>
+<li>   generic-16dsp &nbsp- this device can be used to represent a generic
+                       core device with DSP instructions (no peripherals of any
+                       kind)</li>
+<li>   generic-16bit-da &nbsp- this device can be used to represent a generic
+                       "DA" device (no peripherals of any kind)</li>
+<li>   generic-16bit-ep &nbsp- this device can be used to represent a generic
+                       "EP" device without DSP instructions (no peripherals of 
+                        any kind)</li>
+<li>   generic-16dsp-ep &nbsp- this device can be used to represent a generic
+                       "EP" device with DSP instructions (no peripherals of any
+                        kind)</li>
+<li>   generic-16dsp-ch &nbsp- this device can be used to represent a generic
+                       "CH" device (no peripherals of any kind)</li>
+</ul>
+
+<!--  This is now commented out...
+
+     (*) Support files such as header, include and gld files may
+         have PS appended to the device ID. When invoking tools
+         from a command line, do not include PS as part of the CPU identifier.
+-->
+
+</li>
+</span>
+<li class="Heading0"><h1><a name="Install">
+Installation and Upgrades
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+
+<p>Once installed, the build date of this compiler should report itself as:
+   <tt> Mar 27 2023</tt>.</p>
+
+<p>To determine operating system support for your compiler, see
+   <a href="#OS">System Requirements</a>.</p>
+
+<p>If using MPLAB IDE, be sure to install MPLAB IDE v8.85 or later
+   before installing these tools.</p>
+
+<p>If using MPLAB X IDE, be sure to install
+   MPLAB X IDE v1.51 or later before installing these tools. MPLAB X may not
+   be able to automatically locate the installation if it is not installed
+   into the default directory.</p>
+
+<p>To install the 16-bit Language Tools, perform the following steps:</p>
+
+<ol>
+
+  <li> Locate "Installing and Licensing MPLAB XC C Compilers" (DS52059) -
+       also known as the "XCLM User's Guide" - on the Microchip website. </li>
+
+  <li> Follow the instruction in this manual to install your compiler,
+       even if you will be using a Free or Evaluation edition of the compiler.
+  </li>
+
+</ol>
+
+</span>
+<li class="Heading0"><h1><a name="FusaDocument">
+Functional Safety Manual
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+
+  <p>A Functional Safety Manual for the XC compilers is available in the 
+     documentation package when you purchase a functional safety license.</p>
+</li>
+
+<li class="Heading0"><h1><a name="Document">
+16-bit Language Tools Documentation
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+
+  <p>The following documents pertain to the 16-bit C compiler, these may be
+     installed as part of the full product or downloaded from
+     <a href="https://www.microchip.com/compilers">Microchip's Website</a>:</p>
+
+  <ul>
+  <li><cite>MPLAB XC16 Compiler User's Guide (DS50002071)</cite></li>
+  <li><cite>MPLAB XC16 Assembler, Linker and Utilities User's Guide (DS52106)
+    </cite></li>
+  <li><cite>16-Bit Language Tools Libraries (DS50001456)</cite></li>
+  <li><cite>Microchip Unified Standard Library Reference Guide (DS50003209)</cite></li>
+  </ul>
+
+  <p>We refer to these documents throughout this README in somewhat familiar
+     terms.</p>
+
+  <p>Updates to these manuals, that have not made it into (virtual) print, can
+be found <a href="#DocUpdates">later in this README</a>.</p>
+
+  <p>In addition to these manuals, a set of HTML documentation
+     for peripheral and DSP libraries is also included.
+     </p>
+
+</span>
+<li class="Heading0"><h1><a name="WhatsNew">
+What's New in this Release.
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+
+  <p>Follows is a summary of new features with each release.  Please be sure
+to check for migration notes or new documentation in the relevant sections of
+this file.</p>
+
+<!--  template, rejig as necessary
+<h2>   vx.yy   </h2>
+-->
+<h2>   v2.10 </h2>
+<ul>
+  <li><p><b>Improved License Manager peformance</b> - This release introduces
+            improved performance on license checking and repairs an issue with
+            dongle support with Apple Ventura.</p></li>
+  <li><p><b>New builtins</b> - This release introduces some new builtins
+            for improved shifting, see 
+            <a href="#DocUpdates">Documentation Updates</a> for more detail.
+            </p></li>
+  <li><p><b>Bug Fixes</b> - and other improvements, see 
+            <a href="#Fixed">Fixed Issues</a> for more detail.
+            </p></li>
+
+</ul>
+<h2>   v2.09 (Functional Safety Release)  </h2>
+<ul>
+  <li><p><b>Network Server License</b> - This release of the MPLAB XC Functional Safety Compiler supports the Network Server License.</p></li>
+</ul>
+<h2>   v2.00    </h2>
+<ul>
+  <li><p><b>C99 Standard</b>-- This release is now C99 compliant. Some exclusions for C99 features that do not apply to bare-metal embedded systems apply. Also some extensions to the language standard are enabled, allowing for improved ease of use when developing for Microchip microcontrollers, microprocessors, and embedded controllers. The default standard is gnu99 to support legacy GNU C extensions.</p></li>
+  <li><p><b>Microchip Unified Standard C Library</b> -- All Microchip MPLAB<font size= "-3"><sup>®</sup></font> XC Compilers now share a Microchip Unified Standard C Library. This change makes the library implementation uniform across all architectures supported by the MPLAB XC compilers. The library is a Microchip customized version of the MUSL LibC. <br>
+  Information on the standard functions in this library can be found in the <em>Microchip Unified Standard Library Reference Guide</em>.</p></li>
+  <li><p><b>Please read through <a href="#Migration">Migration Issues</a> as some major changes have taken place in this release</b></p></li>
+  <li><p>Part-support updates and <a href="#Fixed">bug fixes</a>.</p></li>
+</ul>
+
+<h2>   v1.70    </h2>
+<ul>
+  <li><p>This release introduces the Stack Analysis feature.</p></li>
+  <li><p>Improved code generation for condition checking and bitwise operations. Please see <a href="#DocUpdates">Documentation Updates</a> for more information.</p></li>
+  <li><p>Support for Mixed-Sign Multiplication operations when using GNU extended asm. Please see <a href="#DocUpdates">Documentation Updates</a> for more information.</p></li>
+  <li><p>Boot and Secure functions can now have auto_psv/no_auto_psv attributes.</p></li>
+  <li><p>Heap missing warning when dynamic memory allocation routines are used.</p></li>
+  <li><p>Improved error reporting.</p></li>
+  <li><p>Compiler support for X memory and Y memory region information by macro definition <tt>__YDATA_BASE</tt> and <tt>__YDATA_LENGTH</tt>.</p></li>
+  <li><p>Macro Replacement is now supported in <tt>#pragma config</tt> statements when using compiler option <tt>-mexpand-pragma-config</tt>.</p></li>
+  <li><p>Be sure to check the <a href="#Migration">Migration Issues</a> this release.<p></li>
+  <li><p>Part-support updates and <a href="#Fixed">bug fixes</a>.</p></li>
+</ul>
+
+<h2>   v1.61    </h2>
+<ul>
+  <li><p>This release is a bug fix release. Please see <a href="#Fixed">bug fixes</a>.</p></li>
+</ul>
+
+<h2>   v1.60    </h2>
+<ul>
+  <li><p>This release introduces certain features to improve customer experience and bug fixes.</p></li>
+  <li><p>New feature added that displays the linker file used by linker. The text will be displayed as <tt>"Info: Loading file: "</tt> in MPLAB X IDE output window.</p></li>
+  <li><p>Added library capability to print strings present in EDS space. <tt>%lls</tt> format specifier should be used to indicate usage of a EDS space string. Please note that this increases the code and data size of your project when using a <tt>%s</tt> format specifier.</p></li>
+  <li><p>New builtins <tt>__builtin_swap()</tt> and <tt>__builtin_swap_byte()</tt>. Please refer to MPLAB XC16 C Compiler User Guide.</p></li>
+  <li><p>New builtins <tt>__builtin_flim(), __builtin_flim_excess(), __builtin_flimv_excess()</tt>. Please refer to MPLAB XC16 C Compiler User Guide.</p></li>
+  <li><p>New builtin <tt>__builtin_popcount()</tt>. Please refer to MPLAB XC16 C Compiler User Guide</p></li>
+  <li><p>Update <tt>memcpy_eds</tt> argument prototypes to have source as const type.</p></li>
+  <li><p>Linker displays a warning if library linked has objects compiled against devices not present in the Device Family Pack (DFP) used.</p></li>
+</ul>
+
+<h2>   v1.59 (Functional Safety Release) </h2>
+<ul>
+   <li><p>This release contains a new header file, builtins.h.  This file
+       contains prototypes for all Microchip defined builtins and is included
+       automatically when xc.h is included.  Note that this header file
+       travels with the compiler and will not be updated with DFPs.</p>
+
+       <p>Not all prototypes are strictly standard conforming as not all builtin
+       prototypes can be.  To omit the the nonconforming prototypes for MISRA
+       compatibility, define <tt>__XC_STRICT_MISRA</tt> on the compiler command line.</p>
+   </li>
+</ul>
+<h2>   v1.50    </h2>
+<ul>
+  <li><p>This release is a 64bit only release. All executables shipped with release are 64bit executables. This affects MacOS, Linux and Windows installers.</p></li>
+  <li><p>Updated MacOS release is Catalina compatible. Catalina has dropped 32bit executable support. This release of MPLAB XC16 is now a 64bit package.</p></li>
+  <li><p>New linker options that add section attributes to all code, data or PSV (.const) type sections. Additional information is available in the provided User's Guide (DS50002106E).</p></li>
+  <li><p>Added new functionality in compiler that helps user program inactive slave section of PRAM on dual core devices that have this feature. Users can use the function <tt>_program_inactive_slave(slave_number, verify, image);</tt> to program the inactive slave panel with the image. The function performs similar to <tt>_program_slave()</tt> but works only on the inactive panel.</p></li>
+  <li><p>Added a ported version of objcopy to the release. XC16 version is called <tt>xc16-objcopy</tt>. This version of objcopy only recognizes XC16 object code. Any other type of object code is not recognized by this objcopy.</p></li>
+</ul>
+<h2>   v1.49 (Functional Safety Release) </h2>
+<ul>
+  <li><p>This release of the Microchip MPLAB XC16 C compiler is a functional
+         safety compiler based on MPLAB XC16 v1.41.</p></li>
+</ul>
+<h2>   v1.41    </h2>
+<ul>
+  <li><p>Bugfix release; current users of v1.40 should update to v1.41. Please see <a href="#Fixed">bug fixes</a>.</p></li>
+</ul>
+<h2>   v1.40    </h2>
+<ul>
+ <li><p>This release introduces MPLAB<font size="-3"><sup>&reg;</sup></font> Code Coverage support introduced in this version. Passing the option <tt>-mcodecov=near</tt> or <tt>-mcodecov=far</tt> option to the compiler causes it to instrument the generated assembly-instruction blocks with information that the MPLAB X IDE can then use to perform a code-coverage analysis. Visit <a href="https://www.microchip.com/mplab/codecoverage" target="coverage">https://www.microchip.com/mplab/codecoverage</a> for more information on this feature. This feature requires MPLAB X IDE v5.25 or later.</p></li>
+ <li><p>Default code, data and scalar memory model information for the device will be output in the memory report and map file. </p></li>
+ <li><p>Users will be advised to use a small data memory model when user is using large data memory model but small data memory model is sufficient. The advice is in the form of a note printed to console and map file when using memory report option or map file option.</p></li>
+<li><p>Flash routines provided with the compiler will display a message informing users that the routines are deprecated. Using any device other than from the DSPIC30F and PIC24H family should migrate to Microchip Code Configurator flash module for flash support. Please visit <a href="https://www.microchip.com/mcc">https://www.microchip.com/mcc</a></p></li>
+<li><p>Please refer to <a href="#DocUpdates">Documentation Updates</a> for documentation fixes.</p></li>
+</ul>
+ <p> Part-support updates and <a href="#Fixed">bug fixes</a>.</p>
+<h2>   v1.36B   </h2>
+<ul>
+ <li><p> Bugfix release, current users of v1.36 should update to v1.36B.  
+         Please see <a href="#Fixed">bug fixes</a>.</p></li>
+ <li><p> Reduce the number of false negatives from some virus checking software.
+     </p></li>
+</ul>
+
+<h2>   v1.36    </h2>
+<ul>
+ <li>Users will now be warned when using deprecated config macro provided through the include files (*.inc) for assembler. This feature is deprecated and users should use <tt>#pragma config</tt> option in a separate C file.</li>
+ <li>A new directive <tt>".warn"</tt> is added to the assembler.<br>
+<pre> .warn "string" 
+Similar to .error, except a warning is shown.  </pre></li>
+<li>A new compiler builtin: <tt>__builtin_write_RPCON(value)</tt> is added to the compiler:
+<pre>Description: Initiates a write to RPCON register by issuing the correct unlock sequence 
+and setting the RPCON register. Interrupts may need to be disabled for proper operation.
+
+Prototype: void __builtin_write_RPCON(unsigned int value);
+
+Argument: unsigned int value - Specified value to save to RPCON register
+
+Return Value: None
+
+Assembler Operator/Machine Instruction:
+mov #0x55, Wn
+mov Wn, _NVMKEY
+mov #0xAA, Wn
+mov Wn, _NVMKEY
+mov value, _RPCON
+
+Error Messages: None</pre></li>
+<li><p>Updates made to <tt>__builtin_disable_interrupts()</tt> and <tt>__builtin_enable_interrupts()</tt> now clobber DISICNT register.</p></li>
+</ul>
+ <p> Part-support updates and <a href="#Fixed">bug fixes</a>.</p>
+<h2>   v1.35    </h2>
+<ul>
+<li><p>Officially support the dsPIC33C device family.</p></li>
+</ul>
+ <p> Part-support updates and <a href="#Fixed">bug fixes</a>.</p>
+
+<h2>   v1.34    </h2>
+<ul>
+<li><p>The C11 feature of declaring unnamed structures and unions is now supported.
+    This might cause issues with code that have duplicate member names in these 
+    anonymous structures and unions since the standard does not support
+    duplicate members.<br/>
+    An example of anonymous structures:
+    <pre>
+struct v {
+  union {     // anonymous union
+    struct { int i, j; };   // anonymous structure
+    struct { long k, l; } w;
+  };
+  int m;
+} v1;
+v1.i = 2;   // valid
+v1.k = 3;   // invalid: inner structure is not anonymous
+v1.w.k = 5; // valid
+
+</pre>
+
+    An example of anonymous structure that is not supported and will report an 
+    error, due to having duplicate member(s) in the structure:
+    <pre>
+struct b {
+  union {     // anonymous union
+    struct { int i, j; };   // anonymous structure
+    struct { long l,k; 
+             int i, j; };   // anonymous structure
+  };
+  int m;
+} b1;
+
+struct a {
+  union {     // anonymous union
+    struct { 
+      unsigned short i: 2;
+      unsigned short j: 2; };   // anonymous structure
+    struct { 
+      unsigned short i: 2;
+      unsigned short u: 2;
+      unsigned short j: 2;     // Compiler reports error here.
+      long k, l; };
+  };
+  int m;
+} a1;
+
+</pre>
+
+   MPLAB XC16 have a temporary work-around for duplicate names for the same bit 
+    position in a structure. We do not report an error for this situation since 
+    it is commonly used. Example:
+<pre>
+struct a {
+  union {     // anonymous union
+    struct { 
+      unsigned short i: 2;
+      unsigned short j: 2; };   // anonymous structure
+    struct { 
+      unsigned short i: 2;
+      unsigned short j: 2;
+      long k, l; };
+  };
+  int m;
+} a1;
+
+</pre>
+    We recommend not using duplicate members inside the anonymous structures and
+    unions. Since this is a temporary work-around and the work-around can be 
+    removed in the future thus breaking code with duplicate members.
+ </p></li>
+
+<li><p> The User Guides have been updated to reflect the options that were 
+    previously mentioned in the README. Please go through the documentation
+    to learn about the options and new information. Some of the options included
+    in the documentation are:
+    <pre>-mprint-devices
+-mprint-builtins
+-mprint-mchp-search-dirs</pre>
+    </p></li>
+
+<li><p> The memory-report and map file output have been updated. They now show
+    user created memory regions. The names in the memory-report and map file
+    will show the names given by the user. Please refer to the User Guide for
+    an example and detailed information.
+    </p></li>
+</ul>
+ <p> Part-support updates and <a href="#Fixed">bug fixes</a>.</p>
+
+<h2>   v1.33    </h2>
+
+ <p> Device support header files, eg <tt>p30F6014.h</tt>, now use types from 
+     <tt>&ltstdint.h&gt</tt> instead of the native C types (<tt>uint16_t</tt> 
+     instead of <tt>unsigned int</tt>).
+     We expect there to be no impact on user code due to this change.
+ </p>
+ <p> Part-support updates and <a href="#Fixed">bug fixes</a>.</p>
+
+<h2>   v1.32    </h2>
+
+ <p> A new option to the compiler and xc16-objdump; see 
+     <a href="#DocUpdates">Documentation Updates</a> for more information.</p>
+
+ <p> Part-support updates and <a href="#Fixed">bug fixes</a>.</p>
+
+<h2>   v1.31    </h2>
+
+ <p> Support for Dongle licenses.</p>
+
+ <p> Part-support updates and <a href="#Fixed">bug fixes</a>.</p>
+
+<h2>   v1.30    </h2>
+
+ <p> Preservation of data values for variables during restarts is now possible 
+     using the attribute <tt>preserved</tt>. The linker accepts 
+     <tt>--preserved="executable"</tt> option that directs the linker to 
+     discover addresses for data variables that need preservation. Please note 
+     that this is for ELF format and the executable should not be stripped.
+     Please refer to the User's Guide for more information.</p>
+
+ <p> Complimentary to <tt>preserved</tt> attribute, the <tt>update</tt> 
+     attribute will explicitly state that this variable may move and requires
+     initialization on application restart.</p>
+
+ <p> Data can be preserved in bulk using the compiler option 
+     <tt>-mpreserve-all</tt>. This option applies <tt>preserved</tt> attribute 
+     to all definitions not marked with the <tt>update</tt> attribute.</p> 
+
+ <p> To preserve all data location for files that do not compile e.g: pre-built 
+     library files, <tt>--preserve-all</tt> option can be provided to the 
+     linker. The linker will apply the <tt>preserved</tt> attribute to all 
+     definitions not marked with the <tt>update</tt> attribute. This will 
+     affect the files that do not have sources as well, such as C standard 
+     library.</p>
+
+ <p> A new attribute <tt>priority</tt> has been introduced in to the compiler. 
+     This attribute will notify the linker to execute marked functions after 
+     all initializations, at that priority level, have occurred. For further
+     information please refer the User's Guide.</p>
+
+ <p> A new linker option: <tt>--no-ivt</tt> and <tt>--ivt</tt> has been added. 
+     The <tt>--no-ivt</tt> option instructs the linker to not create a default 
+     IVT/AIVT table. The <tt>--ivt</tt> option instructs the linker to create a
+     default IVT/AIVT table.</p>
+
+ <p> Part-support updates and bug fixes. </p>
+
+
+<h2>   v1.26    </h2>
+
+ <p> Beta support for co-resident linking.  This feature allows the user
+     to share program and data memory space between multiple applications
+     without having to manually manage placement.  Please
+     see <a href="#DocUpdates">Documentation Updates</a> for more details. </p>
+
+ <p> We have deprecated old style config macros in favor of <tt>#pragma config</tt>.
+     The old way will continue to work, with a warning, but we recommend that
+     you transition to <tt>#pragma config</tt> as this is much more user-friendly and
+     less prone to namespace conflicts.  The IDE's config bit generator 
+     already uses the #pragma config syntax. </p>
+
+ <p> New built-ins for loading and storing 32-bit accumulator.  These are
+     easier to use than writing inline-assembly; which often goes awry. </p>
+
+ <p> New command-line options, <tt>-moptimize-page-setting</tt> which attempts to
+     reduce the number of PSVPAG/DSRPAG changes when using extended pointers.
+     </p>
+
+ <p> <tt>__conditional_software_breakpoint(exp)</tt> added to assert.h -- This 
+     function-like macro is a lightweight variant of assert(exp) that causes 
+     only a software breakpoint when the assertion fails rather than printing a 
+     message. This macro is disabled if, at the moment of including <assert.h>, 
+     a macro with the name <tt>NDEBUG</tt> has already been defined of if a macro with 
+     the name <tt>__DEBUG</tt> has not been defined. <br>
+     Example usage: <tt>__conditional_software_breakpoint (myPtr!=NULL);</tt> </p>
+
+ <p>Coverity<font size="-3"><sup>&reg;</sup></font> static-analysis 
+     compiler-support files -- Compiler support files for the <a 
+     target="external" href="http://www.coverity.com/products/coverity-save/"> 
+     Coverity SAVE</a> tool are now distributed in the /etc/coverity directory 
+     under the MPLAB XC16 install.</p>
+
+ <p> Part-support updates and bug fixes. </p>
+
+ <p> Be sure to check the <a href="#Migration">Migration Issues</a> this 
+     release.<p>
+
+<h2>   v1.25    </h2>
+
+ <p> We have made some significant code-size improvements.</p>
+
+ <p> We are now using the MPLAB C30 C library.
+     If you wish to continue to use the C library shipped with MPLAB XC16 prior
+     to XC16 v1.25, you may use the option <tt>-no-legacy-libc</tt> on the command line.
+ </p>
+
+ <p> We have added several new compiler builtin functions.  Please
+     see <a href="#DocUpdates">Documentation Updates</a> for complete details.
+ </p>
+
+ <p> Part support version information is now part of the device specific
+     header files as a manifest constant.  Please see 
+     <a href="#DocUpdates">Documentation Updates</a> for complete details.
+ </p>
+
+ <p> The peripheral libraries are no longer shipped with the compiler package.
+     These may be downloaded separately from the 
+     <a href="https://www.microchip.com/compilers">MPLAB XC download page</a>.
+ </p>
+
+ <p> The compiler is smarter about picking the default data memory model.
+     Please see <a href="#DocUpdates">Documentation Updates</a> for complete 
+     details.
+ </p>
+
+ <p> This release also contains part support updates.</p>
+
+<h2>   v1.24    </h2>
+
+ <p>This release is primarily a bug fix release.</p>
+
+ <p>This release add support for alternate register sets which are available
+    on some devices.   Please see details for the new <tt>context</tt> 
+    attribute in this README and the updated user's guide found in the doc
+    folder of this install.</p>
+
+<h2>   v1.23    </h2>
+
+ <p>This release enables scheduling at -O2 and -O3.  Scheduling
+    can improve performance by reducing CPU stalls due to architectural 
+    data flow constraints.</p>
+         
+ <p>This release places string literals used as intializers into the same 
+    section as object which is being initialized.  This behaviour is
+    consistent with MPLAB(r) C30.</p>
+
+ <p>This release also contains part support updates.</p>
+
+<h2>   v1.22    </h2>
+  <p>This release provides several new features:
+     <ol>
+       <li>Support for devices with dual partition features.</li>
+       <li>Support for devices with movable Alternate Vector Tables.</li>
+       <li>Low level support for devices with Data Flash.</li>
+     </ol>
+  </p>
+
+  <p>This release also contains part support updates and bug fixes.</p>
+
+  <p>This release provides target specific interrupt vector details.  Please
+     see &ltinstall-dir&gt/docs/vector_index.html for an index, each link will
+     display a list of vector names tailored specifically to that device.</p>
+
+  <p>This release provides target specific memory information in the form
+     of pre-processor macros.  We provide the base address and length of each
+     device specific memory region.</p>
+
+<h2>   v1.21    </h2>
+  <p>This release contains fixes for some major reported issues and 
+    part-support file updates.
+
+    Additionally the compiler version that a part support is released with is
+    now commented in the support files.  This will facilitate future 
+    part-support only releases.
+  </p>
+
+<h2>   v1.20    </h2>
+  <p>This release contains support for native C fixed-point datatypes.
+     This support is enabled with the option 
+     <tt>-menable-fixed[=rounding_mode]</tt> and is available on all
+     16-bit devices.  Native C arithmetic operations are supported.
+ </p>
+  <p>For devices with DSP instructions, the compiler can generate DSP 
+     instruction under higher levels of optimization (-O2,-Os and -O3).  
+     For example this very simple implementation of a dot product will 
+     generate DSP instructions:
+ </p>
+ <pre>
+   _Fract dot_prod(_Fract *a, _Fract *b, int size) {
+
+      short _Accum sum = 0k;
+      int i;
+
+      for (i = 0; i < size; i++) {
+        sum += (short _Accum) a[i] * b[i];
+      }
+      return sum;
+   }
+</pre>
+ <p>
+     Please see the section
+     <a href="#Migration">Migration Issues</a> later in this README for
+     help migrating from previous versions.
+ </p>
+
+  <p>Details and more information about fixed point, rounding modes, and 
+     other details can be found in the relevant sections of the MPLAB XC16 
+     Compiler User's Guide (DS50002071).
+ </p>
+
+
+<h3><u>Compiler </u></h3>
+  <ul>
+    <li><p>This release provides pre-processor definitions for each SFR when 
+           <tt>xc.h</tt> is included; for example:
+        <pre>
+             #include &ltxc.h&gt
+
+             #ifndef T1CON
+             #error Please select a device that contains Timer 1
+             #endif
+     
+             main() {
+               T1CONbits.TON;
+               /* and so on ... */
+        </pre>
+       </p></li>
+
+    <li><p>New compiler option to disable EDS warning: <tt>-mno-eds-warn</tt>.
+       This option will disable the warning message: <tt>Taking the address of
+       <it>symbol</it> may require an extended pointer for this device.</tt>
+       </p></li>
+
+    <li><p>A compiler builtin to provide software breakpoints,
+           <tt>__builtin_software_breakpoint()</tt>.  If a debugger
+           is attached, the IDE will halt.  In release mode, the device will
+           reset.
+       </p></li>
+
+<h3><u>Linker </u></h3>
+
+    <li><p>New linker option to force the stack into the low 32K memory region
+          <tt>--local-stack</tt> [default]; this behaviour may be changed
+          with the option <tt>--no-local-stack</tt>.
+       </p>
+       <p>dsPIC33EP and PIC24EP devices with more than 32K of RAM can allow
+          the stack to grow beyond the first 32K.  When this happens there is
+          a potential for confusion when the address of an automatic is 
+          required (for example when passing the address of a variable to
+          another function or passing the a buffer).  This would require an
+          extended EDS pointer when the stack crosses the 32K boundary.
+
+          This option prevents the stack from being allocated beyond 32K.
+      </p>
+   </li>
+
+</ul>
+
+<h2>   v1.11    </h2>
+
+<h3><u>   Compiler </u></h3>
+  <ul>
+    <li><p>This release contains several new builtins.</p></li>
+
+    <li><p>The following builtins get run-time information about section
+               addresses and sizes:</p>
+        <ul>
+           <li><tt>unsigned long __builtin_section_begin(
+                   <it>quoted-section-name</it>)</tt></li>
+           <li><tt>unsigned long __builtin_section_end(
+                   <it>quoted-section-name</it>)</tt></li>
+           <li><tt>unsigned long __builtin_section_size(
+                   <it>quoted-section-name</it>)</tt></li>
+        </ul></li>
+
+    <li><p>The following builtins inspect or manipulate the current
+               CPU interrupt state:</p>
+        <ul>
+           <li><tt>unsigned int __builtin_get_isr_state(void)</tt></li>
+           <li><tt>void __builtin_set_isr_state(unsigned int)</tt></li>
+           <li><tt>void __builtin_disable_interrupts(void)</tt></li>
+           <li><tt>void __builtin_enable_interrupts(void)</tt></li>
+        </ul></li>
+
+    <li><p><tt>__attribute__((naked))</tt> may be applied to a function
+           (with caution).  The naked attribute will prevent the compiler from
+           saving or restoring any registers.</p></li>
+
+    <li><p><tt>__attribute__((keep))</tt> may be applied to a function.
+           The keep attribute will prevent the linker from removing the
+           function with <tt>--gc-sections</tt>, even if it is unused.</p></li>
+
+
+  </ul>
+
+<h2>   v1.10    </h2>
+
+<h3><u>   Compiler </u></h3>
+  <ul>
+
+    <li><p>A Common C Interface (CCI) is available for this compiler as well
+           as the MPLAB XC8 and MPLAB XC32 compilers. For details on this
+           interface, see the compiler user's guide.</p></li>
+
+    <li><p>The <tt>__pack_upper_byte</tt> keyword allows access to the upper
+           byte of FLASH on dsPIC and PIC24 devices.</p></li>
+
+    <li><p>This release contains a new 'relaxed compliance' fast floating
+	point math library. It may be accessed by specifying
+        <tt>-relaxed-math</tt> as an option to the compiler and linker.
+
+        <ul>
+
+        <li><p>
+	    As with the current default and fast math libraries, this library
+	    correctly rounds all values created according to the IEEE nearest
+	    or even mode.</p></li>
+
+        <li><p>This library is roughly the same size as the default library,
+	    and roughly the same speed (for basic operations) as the fast
+	    library. Transcendental functions (sin, cos, log, pow, etc.) are
+	    based on the functions in the default library, and share their
+	    accuracy characteristics, but are faster because of faster
+	    underlying basic operations. The transcendental functions in the
+	    <tt>-fast-math</tt> library are fastest and most accurate.</p></li>
+
+        <li><p>This library treats sub-normal (tiny) input operands
+	    as zero, and sub-normal results are flushed to zero. Similarly,
+	    NaN (not-a-number) input operands are treated as infinity.
+	    Infinities in this library function as saturation values, but
+	    otherwise behave like ordinary numbers. They are legal operands for
+	    all operations.</p></li>
+
+        <li><p>The following table compares the salient features of the three
+	    math library implementations. For smallest code size with strict 
+            IEEE compliance, choose the default math library. For best speed and
+	    transcendental math function accuracy, with full compliance to the
+	    IEEE standard, choose the fast math library. For better speed and
+	    small code size, where compliance to IEEE rules regarding tiny
+	    numbers, infinities, and NaNs is not required, choose the relaxed
+	    math library.</p></li>
+
+	<table border="1">
+	  <tr>
+	    <th>Library</th>
+	    <th>IEEE Compliance</th>
+	    <th>Size</th>
+	    <th>Speed</th>
+	    <th>Math Function Accuracy</th>
+	  </tr>
+	  <tr>
+	    <td>default</td>
+	    <td>strict</td>
+	    <td>smaller</td>
+	    <td>slower</td>
+	    <td>less accurate</td>
+	  </tr>
+	  <tr>
+	    <td>-relaxed-math</td>
+	    <td>relaxed</td>
+	    <td>smaller</td>
+	    <td>faster</td>
+	    <td>less accurate</td>
+	  </tr>
+	  <tr>
+	    <td>-fast-math</td>
+	    <td>strict</td>
+	    <td>bigger</td>
+	    <td>fastest</td>
+	    <td>more accurate</td>
+	  </tr>
+	</table>
+
+        </ul>
+    </li>
+
+    <li><p>This release supports
+          <tt>#pragma config <it>setting</it> = <it>value</it></tt> for setting
+           device configuration words.  For device specific configuration
+           settings/values please refer to
+           <a href="config_index.html">config_index.html</a> located in the
+           docs folder.</p></li>
+
+    <li><p>The XC License Manager (xclm) now supports <b>roaming</b> of floating
+           network licenses.  Aimed at mobile users, this feature allows a 
+           floating license to go off network for a short period of time. Using 
+           this feature, you can disconnect from the network and still use your 
+           MPLAB XC compiler. See the <tt>doc</tt> folder of the XCLM install 
+           for more on this feature.<br/> MPLAB X IDE v1.40 includes a Licenses 
+           window (<u><i>Tools>Licenses</i></u>) to visually manage roaming.
+    </p></li>
+
+  </ul>
+
+<h2>   v1.0    </h2>
+
+<h3><u>   Compiler </u></h3>
+  <ul>
+    <li><p>This release migrates the GCC source base from GCC v4.0.2 to
+        GCC v4.5.1.  
+        Please see the section
+        <a href="#Migration">Migration Issues</a> later in this README for
+        help migrating from C30 V3.xx.</p></li>
+
+    <li><p>This release supports all 16-bit Microchip devices, no longer
+        partitioning device support between products.</p></li>
+
+    <li><p>This release contains a new fast floating point math library
+        implementation, containing improvements to 64-bit double precision
+        performance and correctness.</p>
+
+        <ul>
+        <li><p>This library correctly rounds all values created according to
+            the IEEE nearest or even mode.</p>
+
+            <p>The previous fast FP library rounded 64-bit double precision
+            values incorrectly in some cases.</p></li>
+
+        <li><p>64-bit double precision transcendental functions (sin, cos, log,
+            pow, etc.) are faster and more accurate in the new library.</p></li>
+
+        <li><p>Applications using only intrinsic C floating point operations
+            (+,-,*,/) will in general consume less code space than with the
+            previous fast FP library.</li>
+
+        <li><p>Applications using transcendental functions may consume more
+            code space with the new library.</li>
+        </ul>
+    </li>
+
+    <li><p>This release contains update to the C library improving performance
+        of STDIO conversions specifiers <tt>%d</tt>, <tt>%u</tt> and the
+        '<tt>l</tt>'ong versions.</p></li>
+
+    <li><p>This release contains update to the fixed point library (libq),
+        improving general functionality.</p></li>
+
+
+  </ul>
+
+<h3><u>   Linker </u></h3>
+
+  <ul>
+    <li><p>A new linker option <tt>--fill</tt> is supported allowing memory to
+        be filled from the command line (or through an IDE dialogue).  Filling
+        specific memory ranges, or all unused memory is supported.</p>
+
+        <p>Please see <a href="#DocUpdates">Documentation Updates</a> for
+           a description of this option.</p></li>
+  </ul>
+
+
+
+</span>
+<li class="Heading0"><h1><a name="Migration">
+Migration Issues
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+
+<h3><u>       Migrating to XC16 Version 2.00 </u></h3>
+  <ul>
+    <li><p>XC16 v2.00 does not contain COFF format support. Any project using COFF format will fail to build. We highly recommend users to use ELF format in their projects. The ELF format is actively developed for better performance and bug fixes.</p>
+      <ul>
+        <li>Please recompile all projects, libraries and object code that have initially used COFF to now use ELF.</li>
+        <li>Users trying to specify -omf=coff with this version of compiler will get a failure similar to: <tt>COFF format is not supported, please use ELF</tt></li>
+        <li>Users trying to link a COFF compiled object into a project will get a link error similar to: <tt>object.o: file format not recognized; treating as linker script</tt> followed by <tt>object.o:1: syntax error</tt></li>
+      </ul>
+    </p></li>
+    <li><p>Inline keyword has changed for C99 standard. The semantics of extern inline changed between the C89 and C99 standards. Starting with C99, an extern inline function defined inside a header file (and then included in multiple compilation units) might lead to a "multiple definition of <symbol>" linker error. This is because in C99 an externally visible function is emitted for each function declared as extern inline.</p>
+      <ul>To get around this change in semantics:
+        <li>Replace <tt>extern inline</tt> with <tt>static inline</tt> in your application code.</li>
+        <li>Use the <tt>-fgnu89-inline</tt> compiler option. You can add this option to the "Additional options" field in your MPLAB X project properties.</li>
+      </ul>
+    </p></li>
+    <li><p>NULL macro definition has changed in this version. In older versions NULL macro expanded to 0, while in this version NULL macro expands to (void*)0. An application <em>must not assume</em> that NULL will expand to <tt>0</tt>. Code that makes this invalid assumption will likely fail either at build time or at runtime.
+    </p></li>
+    <li><p>XC16 v2.00 has a new library to support C99 standard. Older legacy and no-legacy libraries are no longer supported and bundled with this compiler. Math libraries which could be specified with <tt>-fast-math</tt> and <tt>-relaxed-math</tt> are not supported. The options <tt>-legacy-libc</tt>, <tt>-no-legacy-libc</tt>, <tt>-fast-math</tt> and <tt>-relaxed-math</tt> are removed. Users of these options will get a warning message: <tt> &lt;option&gt; is deprecated</tt> and the compiler will continue compiling with the available default library.
+    </li></p>
+  </ul>
+
+<h3><u>       Migrating to XC16 Version 1.70 </u></h3>
+  <ul>
+    <li><p>XC16 v1.70 now allows the arguments to <tt>#pragma config</tt> to be 
+      seen by the pre-processor and macro expanded when using the compiler 
+      option <tt>-mexpand-pragma-config</tt>.   This could mean that a 
+      previously working <tt>#pragma config</tt> may fail with the updated 
+      compiler because the value has been replaced by a macro value.  This may 
+      result in a message similar to: </p>
+<pre>Error: Cannot squeeze value <value> into setting "SETTING" which is only n-bits wide.</pre>
+ 
+      <p>This can be verified by examining the pre-processed C source file (use 
+        <tt>-E</tt> or <tt>-save-temps</tt> to capture this output).<br/> <br/> 
+        We recommend that #pragma settings exist in their own source file, which 
+        is common practice with tools like MCC.   If this cannot be done, then 
+        ensuring that all config settings occurs at the top of the file before 
+        any other pre-processing statements such as #include or #define can 
+        occur.<br/><br/> 
+        See this example:</p>
+<pre>#define BAR 0x1234
+#pragma config FOO = BAR</pre>
+
+      <p>The BAR value will be evaluated to 0x1234 and can cause issues if the 
+        value is not valid.</p></li>
+
+    <li><p>Dual Core device linker scripts now use a new symbol 
+      <tt>__SECONDARY_CODE_LENGTH</tt> in device startup routines. Please update 
+      your device support files either with the latest DFP or by using the v1.70 
+      internal compiler part support files.</p></li>
+  </ul>
+
+<h3><u>       Migrating to XC16 Version 1.60 </u></h3>
+  <ul>
+    <li><p> The printf in legacy(default) library has a new capability of 
+      printing strings stored in EDS space using the <tt>%lls</tt> format 
+      specifier. The side effect of this new feature is an increase in code and 
+      data size when using the <tt>%s</tt> format specifier.</p></li>
+  </ul>
+
+<h3><u>       Migrating to XC16 Version 1.50 </u></h3>
+
+  <ul>
+    <li><p>User code containing references to <tt>Nop(), ClrWdt(), Sleep()</tt> 
+      and <tt>Idle()</tt> need to make sure that they are including xc.h instead 
+      of {device}.h. The definitions of these routines have moved to 
+      xc.h</p></li>
+   </ul>
+
+<h3><u>       Migrating to XC16 Version 1.30 </u></h3>
+
+  <ul>
+  <li><p>Linker scripts for certain devices use updated crt startup 
+         scripts. Please reference these linker scripts and update the custom 
+         linker scripts appropriately.</p></li>
+   </ul>
+
+
+<h3><u>       Migrating to XC16 Version 1.26 </u></h3>
+
+  <ul>
+  <li><p>Linker script files have removed vector table information.  These
+         are now controlled directly by the linker.   Old-style linker
+         scripts will still work as before, however, it is encouraged that
+         custom linker scripts be updated to the new style.</p>
+
+      <p>These sections can be commented out using:<p>
+      <pre>
+#if __XC16_VERSION < 1026
+#endif
+      </pre>
+
+      <p> Around the section definition.  Example of which can be seen in the
+      currently shipped linker scripts.</p></li>
+  
+  <li><p>Each filled vector slot is listed in the memory report individually
+         instead of as one block labeled <tt>.ivt</tt>.  This should make it
+         easier to determine which slots have been filled in by application
+         code and which slots have been filled by default.</p></li>
+
+  <li><p>Accumulator registers are now treated as unsafe, a warning will be
+         generated if there is an attempt to access them from C.  Using the
+         new builtins should allow code to safely access these registers.
+         </p></li>
+  </ul>
+   
+
+<h3><u>       Migrating to XC16 Version 1.25 </u></h3>
+
+  <ul>
+  <li><p>If a heap is not specified, the compiler will create a heap of
+         size 0.   This will be reported in the memory information in the
+         map file or via the linker's <tt>--report-mem</tt> option.</p></li>
+  
+  <li><p>The default data memory models have changed for devices with memory
+         that extends beyond the near data space.  For most devices this is
+         6K of RAM, for some devices this is 4K of RAM.  For these devices
+         we have changed the default memory model to "small-scalar large-data"
+         which will try to place all scalar objects into near space and 
+         allocate aggregates, such as structures and arrays, into far space.
+
+         As always, this can be changed by making an explicit selection in the
+         usual way.</p></li>
+
+  </ul>
+
+<h3><u>       Migrating to XC16 Version 1.23 </u></h3>
+
+  <ul>
+  <li><p>When scheduling is enabled, for example by using optimization level
+         -O2 or higher, the life-time of some variables can be extended to
+         reduce CPU stalls.  Generally this will not cause a problem, however,
+         programs that make heavy use of fixed register assignments may not
+         successfully compile when these life-times are extended.</p>
+
+      <p>Generally we do not recommend using fixed register assignments.</p>
+
+      <p>Scheduling occurs at two discrete points during optimization
+         transformations and can be disabled using the command line options:
+         <tt>-fno-schedule-insns -fno-schedule-insns2</tt> which can be applied
+         on a file-by-file basis, or globally for a project, in the "additional
+         options" text box in the compiler options page.</p>
+  </li>
+  </ul>
+  
+<h3><u>       Migrating to XC16 Version 1.20 </u></h3>
+
+  <ul>
+  <li><p>To support fixed point arithmetic, the default startup routine
+         now initializes the CORCON register and the compiler relies on
+         this and the ability to modify the DSP configuration bits in 
+         CORCON.  The startup routine is fixed and will initialize this
+         register regardless of whether or not fixed point is used in the
+         application.
+     </p>
+      <p>
+         The compiler will save and restore CORCON in functions where the
+         compiler would modify CORCON.  This can occur if fixed point 
+         operations are used.  To inform the compiler of any function which
+         sets CORCON, please use the save(CORCON) attribute in the definition
+         of that function.  The compiler will then save and restore CORCON
+         around all calls to the specified function(s).
+     </p>
+ </ul>
+
+<h3><u>       Migrating to XC16 Version 1.11 </u></h3>
+
+  <ul>
+  <li><p>New warning message possible when compiling for dsPIC33EP(tm) or
+     PIC24EP(tm) or other devices:</p>
+
+   &nbsp<tt>Taking the address of &ltsymbol&gt may require an extended pointer 
+   for this device</tt>
+
+  <p>This warning message will be generated if the address (directly or
+     indirectly) of an <tt>auto</tt> variable is taken using a standard data
+     pointer.</p>
+
+  <p>These devices support the allocation of the stack anywhere within the
+     first 64K of RAM. <tt>auto</tt> variables are allocated on the stack.  In
+     a 16-bit data pointer only the lower 15-bits are used as an address, the
+     most-significant bit is the 'PSV' bit, and, if set, causes the
+     architecture to form a complete address from the data space read or write
+     page (<tt>DSRPAG</tt> or <tt>DSWPAG</tt>).  Therefore, when a <tt>auto</tt>
+     variable's address is taken, an extended data space style pointer
+     (<tt>__eds__</tt>) is required to capture and use the full address.</p>
+
+  </li>
+  </ul>
+
+<h3><u>       Migrating to XC16 Version 1.10 </u></h3>
+
+  <p>Migration from MPLAB C Compiler for PIC24 MCUs and dsPIC DSCs v3.xx:</p>
+
+  <ul>
+     <li><p><b>ISR section name change</b></p>
+
+         <p>All ISR functions will be in a section named 
+           <tt>.isr&lt;section-name&gt;</tt>.  The following change to your 
+            linker script is required to maintain the current functionality.</p>
+         <p>Change:</p>
+
+         <p><tt>85   bl_program, __BL_PROGRAM_BASE :</br>
+                86   {</br>
+                87         *(bl_program);</br>
+                88   } >bl_program</p></tt>
+
+         <p>to:</p>
+
+         <p><tt>85   bl_program, __BL_PROGRAM_BASE :</br>
+                86   {</br>
+                87         *(bl_program);</br>
+                ++         *(.isrbl_program);</br>
+                88   } >bl_program</p></tt>
+  </ul>
+
+  <p>Migration from MPLAB XC16 Compiler v1.10:</p>
+
+  <ul>
+     <li><p><b>XC License Manager </b></p>
+
+         <p>xclm Location - MPLAB XC16 v1.00 installed the xclm executable into 
+            a separate directory.  Starting in MPLAB XC16 v1.10, the xclm 
+            executable is now located in the compiler's bin directory (e.g. 
+            <install-dir>/bin). To query the available licenses or to activate a
+            license, use the newer copy of the xclm executable. The older 
+            location is no longer used and, if you aren't using it for an older 
+            MPLAB XC compiler, you may remove the older copy.</p>
+     </li>
+  </ul>
+
+
+<h3><u>       Migrating to XC16 Version 1.00 </u></h3>
+
+  <p>Migration from MPLAB C Compiler for PIC24 MCUs and dsPIC DSCs v3.xx:</p>
+
+  <ul>
+     <li><p><b>ELF is the default object format</b></p>
+
+         <p>XC16 will target the ELF Object Module Format (OMF) by default.
+            To continue using COFF, please use the -omf=coff command line
+            option or select "COFF" as the Output file format in MPLAB X.
+         </p>
+     </li>
+
+     <li><p><b>Extended type qualifiers applied to <tt>auto</tt> objects</b></p>
+
+         <p>Better error checking has been implemented when applying certain
+            access qualifiers (<tt>__psv__</tt>, <tt>__eds__</tt>, and so on)
+            to objects that are automatic.  Automatic objects are allocated on
+            the stack, these qualifiers are not necessary and are occasionally
+            harmful in these cases.   The compiler will generate an error
+            message.
+         </p>
+     </li>
+
+     <li><p><b>Extended type qualifiers applied to function parameters</b></p>
+
+         <p>Function parameters often do not reside in memory so applying
+            access qualifiers does not make sense.  The compiler will generate
+            an error message.
+         </p>
+     </li>
+
+     <li><p><b>Auto fixed register variables</b><p>
+
+         <p>There are very (very) few situations where fixed register
+            assignments are helpful.  There are many where they are harmful.
+            However, it is now recommended to use <tt>volatile</tt> when
+            specifying fixed registers assignments, especially when they are
+            <tt>auto</tt>matic.</p></li>
+
+     <li><p><b>C30 Manifest constants</b></p>
+
+         <p>Many C30 manifest constants have been renamed, however the
+            old ones still exist.  Please migrate new code to use the new
+            constants.  <tt>__C30_VERSION__</tt> becomes
+            <tt>__XC16_VERSION__</tt>, <tt>__C30__</tt> becomes
+            <tt>__XC16__</tt>, and so on.</p>
+
+         <p><tt>__XC16_VERSION__</tt> now evaluates to major version * 1000
+            + minor version,
+            so that: <tt>#if __XC16_VERSION__ > 330</tt> still holds true.</p>
+         </li>
+
+     <li><p><b>Generic header files</b></p>
+
+         <p>The new generic header files <tt>xc.h</tt> and <tt>xc.inc</tt>
+         are recommended going forward.  These headers support all devices
+         regardless of family.</p></li>
+
+
+  </ul>
+
+</span>
+<li class="Heading0"><h1>
+<a name="DocUpdates">
+Documentation Updates
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+<h2>   v2.10  </h2>
+<ul>
+    <li><p>Added new 32-bit shifts by <it>n</it>, for use when the author
+           knows that <it>n</it> will never be larger than 16 bits; the
+           compiler may not be able to dermine that.  These builtins will
+           produce incorrect answers for shifts larger than 16.</p>
+        <p><ul>
+          <li>uint32_t __builtin_lshiftrt_32_16(uint32_t X, uint16_t N);</li>
+          <li>int32_t __builtin_ashiftrt_32_16(int32_t X, uint16_t N);</li>
+         </ul></p>
+     </li>
+</ul>
+<h2>   v2.00  </h2>
+<ul>
+  <li><p> User Guides have been updated with new documentation. Please refer to the User Guides for detailed information.</p></li>
+</ul>
+
+<h2>   v1.70  </h2>
+<ul>
+  <li><p>Added support for Mixed-Sign Multiplication mode operands, is done 
+    through GNU extended ASM operand constraints <tt>zu</tt> and <tt>zs</tt>. 
+    The <tt>zu</tt> constraint allows for unsigned input operand and <tt>zs</tt> 
+    for a signed input operand. For example: <br/>
+<pre>
+int x;
+unsigned int y;
+int result;
+asm("MPY %[sgn]*%[unsgn], A \n\t"
+        "SAC.R A, #1, %[res] \n\t"
+        : [res] "=r" (result)
+        : [sgn] "zs" (x),  /* zs for signed MAC (W5,W7) */
+          [unsgn] "zu" (y) /* zu for unsigned MAC (W4,W6) */
+    );
+</pre>
+  </p></li>
+  <li><p>Improved code generation for condition checking and bitwise operations. 
+    The compiler tries to use bitwise operations for condition checking instead 
+    of branching. This decreases code size and increases execution speed. The 
+    option <tt>-fif-conversion-skip</tt> is associated with this optimization 
+    and is on by default. Users can specify <tt>-fno-if-conversion-skip</tt> to 
+    disable this optimization.
+  </p></li>
+
+</ul>
+
+<h2>   v1.60  </h2>
+<ul>
+  <li><p>Most tools accept the option <tt>-mdfp=<pack></tt>. This option directs 
+    the compiler to use the device support included in the specified pack; the 
+    directory should be to the 'xc16' folder within the pack. This option is 
+    usually used by the IDE when specifying a specific pack.
+  </p></li>
+
+  <li><p>The current manual mistakenly states that -O2 is not included with the 
+    'free' option set.
+  <p></li>
+</ul>
+
+<h2>   v1.59  </h2>
+<ul>
+  <li><p>Generic device support include file xc.h now includes builtins.h which 
+    contains prototypes for all Microchip special compiler builtins.  Some 
+    builtins are not MISRA compliant; these can be ommitted by adding the define 
+    <tt>__XC_STRICT_MISRA</tt> to the compiler command line.
+  </p></li>
+</ul>
+
+<h2>   v1.40  </h2>
+<ul>
+  <li><p>The prototype for <tt>_Q16div</tt> and <tt>_Q16divmod</tt> is incorrect 
+    in the "16-Bit Language Tools Libraries Manual" or "DS50001456K" document. 
+    Please refer to below for the correct prototype.<br/><br/>
+    _Q16div<br/>
+    <b>Description:</b> This function returns the quotient of its 
+    arguments.<br/>
+    <b>Include:</b> <libq.h><br/>
+    <b>Prototype:</b> _Q16 _Q16div(_Q16 dividend, _Q16 divisor);<br/>
+    <b>Argument:</b> "dividend" a fixed-point number in Q16 format. The value of 
+    this argument ranges from 0 to 2147483647.<br/>
+    "divisor" a fixed-point number in Q16 format. The value of this argument 
+    ranges from 0 to 2147483647.<br/>
+    <b>Return Value:</b> This function returns the quotient of its arguments. 
+    The value ranges from 0 to 2147483647..<br/><br/>
+    _Q16divmod<br/>
+    <b>Description:</b> This function returns the quotient and remainder of its 
+    arguments.<br/>
+    <b>Include:</b> <libq.h><br/>
+    <b>Prototype:</b> _Q16 _Q16divmod(_Q16 dividend, _Q16 divisor, 
+    _Q16 *remainder);<br/>
+    <b>Argument:</b> "dividend" a fixed-point number in Q16 format. The value of 
+    this argument ranges from 0 to 2147483647.<br/>
+    "divisor" a fixed-point number in Q16 format. The value of this argument 
+    ranges from 0 to 2147483647.<br/>
+    "remainder" a pointer to an object large enough to hold the remainder. This 
+    must be provided by the caller.<br/>
+    <b>Return Value:</b> This function returns the quotient and remainder of its 
+    arguments. The values range from 0 to 2147483647.</p></li>
+    <li><p>Incorrect guidance for <tt>-mlarge-array</tt> in "MPLAB XC16 C 
+    Compiler User Guide" or "DS50002071H" document. The correct guidance 
+    is:<br/>
+    -mlarge-arrays option is to be used when allocating arrays <b>greater than 
+    or equal to 32K.</b></p></li>
+</ul>
+<h2>   v1.34  </h2>
+<ul>
+  <li><p>The User Guides have been updated with all the previous documentation 
+         updates. Please refer to the User Guides for detailed 
+         information.</p></li>
+</ul>
+
+
+<li class="Heading0"><h1><a name="Fixed">
+Fixed Issues
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+
+<!-- template  cut-n-paste and re-jig
+<h2>   vx.yy  </h2>
+<ul>
+<h3><u>     Assembler </u></h3>
+  <li><p>XC16- &nbsp </p></li>
+  <li> SSR## - short detail
+
+           <p>optional long detail</p>
+           </li>
+<h3><u>     Compiler </u></h3>
+<h3><u>     Linker </u></h3>
+</ul>
+-->
+<h2>   v2.10    </h2>
+<ul>
+  <li><p>XC16-1412 &nbsp Improve performance of 32-bit shifts.</p></li>
+  <li><p>XC16-1665 &nbsp Compiler produces extra move instead using indirect + displacement.</p></li>
+  <li><p>XC16-1690 &nbsp Link error: region program is full.</p></li>
+  <li><p>XC16-1691 &nbsp Error in longjmp() for PIC24E and dsPIC33E devices</p></li>
+  <li><p>XC16-1694 &nbsp Some variants of %f can loop.</p></li>
+  <li><p>XC16-1702 &nbsp Progamming the secondary core can fail.</p></li>
+  <li><p>XC16-1764 &nbsp Add support for -mdfp= option to xc16-nm utility.</p></li>
+  <li><p>XC16-1765 &nbsp Update XCLM to the latest.</p></li>
+  <li><p>XC16-1768 &nbsp Taking the address of a stack object in the 
+                         Unified Mmeory Model can lead to an incorrect 
+                         address.</p></li>
+  <li><p>XC16-1772 &nbsp XC16 uses the 'lite' version of malloc(), however 
+                         the full version is also included.</p></li>
+  <li><p>XC16-1785 &nbsp __YDATA_END is incorrect in linker scripts; this
+                         repair is also available in later DFPs.</p></li>
+  <li><p>XC16-1811 &nbsp Update EEPROM erase all function</p></li>
+  <li><p>XC16-1822 &nbsp Speed/ Code size regression vs XC16 v1.70.</p></li>
+  <li><p>XC16-1850 &nbsp __heap is being defined incorrectly.</p></li>
+  <li><p>XC16-1853 &nbsp Implement new builtins for right shift by <it>n</it>,
+                         where <it>n</it> is known to be less than 16.</p></li>
+  <li><p>XC16-1919 &nbsp Repair code size increase in atan2().</p></li>
+  <li><p>XC16-1920 &nbsp Incorrect result for %.0f format specifier.</p></li>
+  <li><p>XC16-1928 &nbsp Define stdint.h types internally in the 
+                         compiler.</p></li>
+  <li><p>XC16-1943 &nbsp malloc() in the Unified Memory Model does not
+                         allocate the correct space.</p></li>
+  <li><p>XC16-1945 &nbsp For some codes, subsequent compiles can produce
+                         different codde sequences; repair an example.</p></li>
+</ul>
+<h2>   v2.00    </h2>
+<ul>
+  <li><p>XC16-1313 &nbsp Implemented a new library with C99 support.</p></li>
+  <li><p>XC16-1360 &nbsp Update time_t to unsigned long type.</p></li>
+  <li><p>XC16-1369 &nbsp Change compiler default to support C99 standard.</p></li>
+  <li><p>XC16-1370 &nbsp Fix code generation that fails during certain optimizations.</p></li>
+  <li><p>XC16-1420 &nbsp Improve error messages when large-code is needed but a small-code model is used.</p></li>
+  <li><p>XC16-1472 &nbsp Fix linker to not warn when FBSLIM consumes whole page.</p></li>
+  <li><p>XC16-1473 &nbsp Fix linker behaviour when using certain linker syntax.</p></li>
+  <li><p>XC16-1504 &nbsp Emit compiler warning when invalid type punning happens.</p></li>
+  <li><p>XC16-1521 &nbsp Generate device support assembler include files with macro guards.</p></li>
+  <li><p>XC16-1528 &nbsp Emit warning when pointer arithmetic causes overflow/underflow.</p></li>
+  <li><p>XC16-1541 &nbsp Make certain functions using certain terms as deprecated.</p></li>
+  <li><p>XC16-1544 &nbsp Improve compiler to check dereferencing of address literals.</p></li>
+  <li><p>XC16-1545 &nbsp Fix linker when linker script contains multiple program regions.</p></li>
+  <li><p>XC16-1546 &nbsp Fix linker to emit error message if there is no space in data memory to place the stack.</p></li>
+  <li><p>XC16-1556 &nbsp Fix linker to do a range check for relocations.</p></li>
+  <li><p>XC16-1568 &nbsp Fix compiler segmentation fault.</p></li>
+  <li><p>XC16-1570 &nbsp Update PRAM wipe routine for dsPIC33C family of devices.</p></li>
+  <li><p>XC16-1573 &nbsp Fix compiler code generation for if skip conversions.</p></li>
+  <li><p>XC16-1574 &nbsp Fix compiler segmentation fault.</p></li>
+  <li><p>XC16-1578 &nbsp Remove support for COFF format.</p></li>
+  <li><p>XC16-1587 &nbsp Fix compiler when placing incomplete definitions to the wrong section.</p></li>
+  <li><p>XC16-1595 &nbsp Fix compiler code generation related to move instructions.</p></li>
+  <li><p>XC16-1628 &nbsp Fix compiler code generation related to bitfield instructions.</p></li>
+  <li><p>XC16-1632 &nbsp Fix failure in producing stack analysis.</p></li>
+  <li><p>XC16-1639 &nbsp Fix bad data in linker script files for certain devices.</p></li>
+</ul>
+
+<h2>   v1.70    </h2>
+<ul>
+  <li><p>XC16-175 &nbsp Fix Data memory usage report for external spaces.</p></li>
+  <li><p>XC16-381 &nbsp Fix PA tool syntax error when using Register symbols in inline asm.</p></li>
+  <li><p>XC16-915 &nbsp Fix PA tool syntax error when using Register symbols in inline asm.</p></li>
+  <li><p>XC16-974 &nbsp Fix linker error when allocating code in general segment when boot segment is active.</p></li>
+  <li><p>XC16-1130 &nbsp Fix compiler error when setting hidden upper byte of config words.</p></li>
+  <li><p>XC16-1262 &nbsp Fix URL in installers.</p></li>
+  <li><p>XC16-1275 &nbsp Add macro expansion in #pragma config statements.</p></li>
+  <li><p>XC16-1278 &nbsp Improve code generation for condition checking and bitwise operation.</p></li>
+  <li><p>XC16-1302 &nbsp Add support for mixed sign DSP operations when using extended asm. </p></li>
+  <li><p>XC16-1337 &nbsp Add auto_psv/no_auto_psv support for boot/secure functions.</p></li>
+  <li><p>XC16-1338 &nbsp Generate user notification when heap size is not specified and dynamic memory allocation routines are used.</p></li>
+  <li><p>XC16-1356 &nbsp Improve error reporting for section type conflicts.</p></li>
+  <li><p>XC16-1371 &nbsp Improve error reporting for pointer assignment.</p></li>
+  <li><p>XC16-1422 &nbsp Added additional check to verify #pragma config has valid values.</p></li>
+  <li><p>XC16-1438 &nbsp Notify user that code coverage is not supported on coff.</p></li>
+  <li><p>XC16-1440 &nbsp Added additional check to verify #pragma config has valid values.</p></li>
+  <li><p>XC16-1444 &nbsp Add macros for determining x and y memory region sizes.</p></li>
+  <li><p>XC16-1455 &nbsp Fix issue of psv state when calling general function from a secure/boot function.</p></li>
+  <li><p>XC16-1463 &nbsp Add parameter checking for certain builtin functions.</p></li>
+  <li><p>XC16-1465 &nbsp Add macro guards for xc.h</p></li>
+  <li><p>XC16-1469 &nbsp Update Terminology used in compiler and libraries.</p></li>
+  <li><p>XC16-1478 &nbsp Fix an issue caused due to reload pass.</p></li>
+  <li><p>XC16-1486 &nbsp Remove examples from compiler installation.</p></li>
+  <li><p>XC16-1488 &nbsp Fix address error trap when generating bfins insn.</p></li>
+  <li><p>XC16-1490 &nbsp Fix linker's failure to allocate vector table.</p></li>
+  <li><p>XC16-1491 &nbsp Fix bin2hex crash when using --image option.</p></li>
+  <li><p>XC16-1492 &nbsp Fix Internal Compiler Error(ICE) for complex_same_phi_args_p.</p></li>
+  <li><p>XC16-1514 &nbsp Fix linker's failure to allocate into data memory when BSLIM is small.</p></li>
+  <li><p>XC16-1529 &nbsp Fix incorrect optimization of loop variant conditional where the value is known in first iteration.</p></li>
+</ul>
+
+<h2>   v1.61    </h2>
+<ul>
+  <li><p>XC16-1436 &nbsp Fix Internal Compiler Error due to initialization of all elements of an eds array to 0.</p></li>
+  <li><p>XC16-1458 &nbsp Fix incorrect prototypes in builtins.h.</p></li>
+  <li><p>XC16-1464 &nbsp Fix Internal Compiler Error: in extract_range_from_binary_expr error.</p></li>
+  <li><p>XC16-1466 &nbsp Fix segmentation fault.</p></li>
+  <li><p>XC16-1476 &nbsp Provide __CODE_BASE and __CODE_LENGTH in linker file for secondary cores in CH family.</p></li>
+  <li><p>XC16-1480 &nbsp Fix incorrect data access from variable array located in EDS memory</li></p>
+</ul>
+
+<h2>   v1.60    </h2>
+<ul>
+  <li><p>The current manual mistakenly states that -O2 is not included with the 'free' option set.<p></li>
+  <li><p>XC16-1166 &nbsp Add context attribute support to dsPIC33CHxxxS1 devices.</p></li>
+  <li><p>XC16-1221 &nbsp Fix Internal Compiler Error when memory address access fails due to left shift.</p></li>
+  <li><p>XC16-1245 &nbsp Fix code getting allocated to last page of boot section when AIVT is enabled</p></li>
+  <li><p>XC16-1250 &nbsp Add context attribute support for dsPIC33Cx accumulator context registers that support it.</p></li>
+  <li><p>XC16-1251 &nbsp Fix incorrect assembly generation for LDSLV and VFSLV instructions.</p></li>
+  <li><p>XC16-1254 &nbsp Account for phantom bytes when allocating common symbols.</p></li>
+  <li><p>XC16-1255 &nbsp Fix address error trap when using large array mode for dsPIC33Cx devices.</p></li>
+  <li><p>XC16-1256 &nbsp Update function definition of offset() for large arrays.</p></li>
+  <li><p>XC16-1257 &nbsp Fix assembler error 255 crashes on Windows 10 machines.</p></li>
+  <li><p>XC16-1263 &nbsp Fix bug when accessing PSV address space at higher optimizations.</p></li>
+  <li><p>XC16-1266 &nbsp Fix linker's failure to allocate stack at end of page.</p></li>
+  <li><p>XC16-1423 &nbsp Fix address error trap caused to inaccurate BFINS instruction generation.</p></li>
+  <li><p>XC16-1427 &nbsp Fix incorrect assembly generation for dsPIC33Cx devices.</p></li>
+  <li><p>XC16-1428 &nbsp -mdfp option does not change default assembler include path.</p></li>
+  <li><p>XC16-1437 &nbsp Modified license agreements for device support files.</p></li>
+</ul>
+
+<h2>   v1.59 (Functional Safety Relase) </h2>
+<ul>
+  <li><p>XC16-1236 &nbsp New devices added through DFP are not supported with xc16-ar tool.</p></li>
+  <li><p>XC16-1248 &nbsp Internal Compiler Error with bit-field types on 33CH/CK devices.</p></li>
+  <li><p>XC16-1253 &nbsp Using -v or --verbose prevents invocation of the subtools.</p></li>
+  <li><p>XC16-1259 &nbsp Internal Compiler Error on Windows 10 with 'Microsoft's Exploit Settings' fully enabled.</p></li>
+  <li><p>XC16-1261 &nbsp Pointer arithmetic with a 'normal' data pointer cast to an EDS pointer can fail.</p></li>
+  <li><p>XC16E-281 &nbsp Provide 'builtins.h' which prototypes XC16 compiler builtin functions; this is included by default in xc.h</p></li>
+</ul>
+<h2>   v1.50    </h2>
+<ul>
+  <li><p>XC16-1093 &nbsp Fixed assembler allowing usage of w14 for call.l when w15 is a stack pointer.</p></li>
+  <li><p>XC16-1117 &nbsp Fixed incorrect encoding for the second cpbeq instruction in a concurrently occuring cpbeq sequence.</p></li>
+  <li><p>XC16-1142 &nbsp Removed deadlinks from the XC16MasterIndex.htm document.</p></li>
+  <li><p>XC16-1155 &nbsp Fix dependency file generator so makefile does not show unrelated information and break makefile format.</p></li>
+  <li><p>XC16-1156 &nbsp Fix dependency file generator so makefile does not show unrelated information and break makefile format.</p></li>
+  <li><p>XC16-1161 &nbsp Fix response file recognition issue. XC16 now parses response files.</p></li>
+  <li><p>XC16-1163 &nbsp Fix assembler listing file option -m (Include Macro expansion) algorithm to not affect symbol address.</p></li>
+  <li><p>XC16-1179 &nbsp Fix text typo in --help for option --fast-math.</p></li>
+  <li><p>XC16-1181 &nbsp Fix sscanf showing incorrect results for float type. This is a bug in v1.36Band later compiler.</p></li>
+  <li><p>XC16-1182 &nbsp Update libdsp library files for dsPIC33F 32bit fft operations.</p></li>
+  <li><p>XC16-1194 &nbsp Generate "ResourceGraphs.pdf" document and add it to the release.</p></li>
+  <li><p>XC16-1201 &nbsp Move Nop(), Sleep(), ClrWdt(), Idle() definitions to xc.h. Generic device projects will be able to take advantage of these definitions. Please see <a href="#Migration">Migration Issues</a> for more information.</p></li>
+  <li><p>XC16-1207 &nbsp Emit .size directives for 'common' declarations of variables going into .bss or .bss sections.</p></li>
+  <li><p>XC16-1219 &nbsp Fix incorrect generation of BFEXT instruction accessing odd adresses. This causes a Address Trap Error.</p></li>
+  <li><p>XC16-1223 &nbsp Fix incorrect EDS pointer arithmetic when keeping track of data structure spanning across psv page boundry.</p></li>
+  <li><p>XC16-1228 &nbsp Update _program_slave routine to handle large(>28k) PRAM images.</p></li>
+</ul>
+<h2>   v1.49 (Functional Safety Release) </h2>
+<ul>
+<li><p>None.</li></p>
+</ul>
+
+<h2>   v1.41</h2>
+<ul>
+  <li><p>XC16-1202 &nbsp Fix -merrata=ecc does not prevent all errata conditions.</p></li>
+  <li><p>XC16-1203 &nbsp Fix invalid bitfield operation at higher optimizations in DSPIC33C devices.</p></li>
+  <li><p>XC16-1204 &nbsp Fix modified data from bitfield operation not getting stored for indirect access in DSPIC33C devices.</p></li>
+</ul>
+<h2>   v1.40</h2>
+<ul>
+  <li><p>XC16-942 &nbsp Update Readme for _Q16div and _Q16divmod library documentation prototype error.</p></li>
+  <li><p>XC16-1134 &nbsp Update Readme for -mlarge-array documentation error.</p></li>
+  <li><p>XC16-1158 &nbsp Fix incorrect handling of --no-cpp option. The compiler will not preprocess linker scripts if --no-cpp is passed.</p></li>
+  <li><p>XC16-1167 &nbsp Fix incorrect register and near memory compare.</p></li>
+  <li><p>XC16-1174 &nbsp Fix incorrect memory move generated for certain large arrays of data.</p></li>
+  <li><p>XC16-1177 &nbsp Interrupt vector table incorrectly generated for device PIC24EP128GP202.</p></li>
+  <li><p>XC16-1180 &nbsp Fix for dsPIC33C devices, the compiler generates an incorrect move(byte mode move) to load data for bitfield insert operation(bfins) of size 8bits to 15bits.</p></li>
+  <li><p>XC16-1183 &nbsp Match pre v1.26 Interrupt vector allocation sequence.<br>
+         Example of allocation sequence taken from linker:    <br>
+LONG( DEFINED(__AltReservedTrap0) ? ABSOLUTE(__AltReservedTrap0) : (DEFINED(__ReservedTrap0) ? ABSOLUTE(__ReservedTrap0) : ABSOLUTE(__DefaultInterrupt))); </p></li>
+  <li><p>XC16-1193 &nbsp Fix generated elf debug information. There is an incorrect bit offset for only the top-most bit that can cause some ELF readers to read incorrect data.</p></li>
+</ul>
+
+<h2>   v1.36B</h2>
+<ul>
+  <li><p>XC16-1169 &nbsp Bad initialisastion of structure members.</p></li>
+  <li><p>XC16-1171 &nbsp Optimisation corrupts auto variable on stack.</p></li>
+</ul>
+
+<h2>   v1.36</h2>
+<ul>
+  <li><p>XC16-912 &nbsp Retain *.p files when -save-temps and -mpa are used in conjunction</p></li>
+  <li><p>XC16-1003 &nbsp Code size improvements when using -moptimize-page-setting</p></li>
+  <li><p>XC16-1037 &nbsp Fix insertion of alignment gap inside user created section in linker script</p></li>
+  <li><p>XC16-1040 &nbsp Fix device mismatch warning for libq-dsp library object files</p></li>
+  <li><p>XC16-1041 &nbsp Fix undefined reference to '_Q15atanYByXByPI' for PIC24F16KL401</p></li>
+  <li><p>XC16-1049 &nbsp Fix incorrect float value precision output from atof.</p></li>
+  <li><p>XC16-1059 &nbsp Fix __builtin_disable_interrupts due to CPU disi errata for  dsPIC33FJxxMCx02/x04 family devices</p></li>
+  <li><p>XC16-1060 &nbsp Now able to allocate data after aivt by using address attribute.</p></li>
+  <li><p>XC16-1127 &nbsp Fix elf-ld.exe seg-fault crash.</p></li>
+  <li><p>XC16-1131 &nbsp Fix warning for empty symbol in coff object symbol table</p></li>
+  <li><p>XC16-1132 &nbsp Fix xc16 installer not doing a clean exit after installation completes.</p></li>
+  <li><p>XC16-1133 &nbsp Fix space(psv) structure data stored in .const section and not in the same psv section.</p></li>
+  <li><p>XC16-1134 &nbsp Fix unrecognizable insn ICE for insv/extv instructions.</p></li>
+  <li><p>XC16-1135 &nbsp Fix the --partition needs argument error</p></li>
+  <li><p>XC16-1136 &nbsp Fix long long move when generated destination is pre/post decrement of target register.</p></li>
+  <li><p>XC16-1138 &nbsp Fix error message for an Invalid operand specified type of error.</p></li>
+  <li><p>XC16-1144 &nbsp Fix ICE at optimization level 3</p></li>
+  <li><p>XC16-1145 &nbsp Mark assembler config macro as deprecated and display warning to users using this macro.</p></li>
+  <li><p>XC16-1147 &nbsp Fix error when supplying -s (strip) option to linker</p></li>
+  <li><p>XC16-1148 &nbsp Fix xc16-gcc.exe --help displaying tracing information.</p></li>
+  <li><p>XC16-1149 &nbsp Update dsPIC header files to use the correct macro values for config bits.</p></li>
+  <li><p>XC16-1151 &nbsp Fix sequential allocator in linker to check sections address overlap after a section relocation.</p></li>
+  <li><p>XC16-1152 &nbsp Update DSP library help files.</p></li>
+  <li><p>XC16-1153 &nbsp Fix incorrect DSRPAG pop while using boot functions.</p></li>
+  <li><p>XC16E-79 &nbsp Add new builtin __builtin_writeRPCON(value)</p></li>
+  <li><p>XC16E-98 &nbsp Improve assembler error reporting for Address error situations.</p></li>
+  <li><p>XC16E-172 &nbsp Update microchip webpage references to the secure https versions.</p></li>
+</ul>
+<h2>   v1.35</h2>
+<ul>
+  <li><p>XC16-948 &nbsp Fix undefined reference to '.const' error for eds access.</p></li>
+  <li><p>XC16-952 &nbsp Fix incorrect code generation for eds pointers when stack is greater than 32K bytes.</p></li>
+  <li><p>XC16-1024 &nbsp Generate error when non-address variable is passed to __builtin_dmaoffset()</p></li>
+  <li><p>XC16-1038 &nbsp Fix error when -O2, -O3 and -Os combine sequential __builtin_clr and __builtin_add to generate __builtin_lac().</p></li>
+  <li><p>XC16-1096 &nbsp Generate error when __builtin_mac is provided with non-integer or extended memory address pointers.</p></li>
+  <li><p>XC16-1126 &nbsp Fix internal compiler error for pointer address increment of a specific kind(__prog__) at optimization -O2 and above.</p></li>
+</ul>
+
+<h2>   v1.34</h2>
+<ul>
+  <li><p>XC16-355 &nbsp Fix User Guide documentation:The built-in function 
+         '__builtin_movsac' return type to void return.</p></li>
+  <li><p>XC16-433 &nbsp Fix User Guide documentation: __LINE__ macro 
+         returns a decimal integer not a string</p></li>
+  <li><p>XC16-602 &nbsp Fix User Guide documentation: Q16norm() return value
+         is a normalized value. 
+         </p></li>
+  <li><p>XC16-707 &nbsp Fix User Guide documentation: Return value of builtin 
+         function __builtin_sac</p></li>
+  <li><p>XC16-936 &nbsp OPTIONAL() keyword references in linker script causes 
+         multiple definition errors.</p></li>
+  <li><p>XC16-964 &nbsp Pointer to packed structure causes linker error 
+         "Relocation truncated to fit: .word _pv_uint16"</p></li>
+  <li><p>XC16-969 &nbsp Fix User Guide documentation: _Q15abs() return value for
+          -32768</p></li>
+  <li><p>XC16-991 &nbsp Update User Guide documentation: Update ymemory and dma
+         attributes affect on section types for dsPIC33EP device 
+         families.</p></li>
+  <li><p>XC16-992 &nbsp Fix User Guide documentation: Linker script should be
+         specified in the command-line when linking.</p></li>
+  <li><p>XC16-998 &nbsp Link error on using printf : "reference to __Vacopy in 
+         xprintf_cdnopsuxX.XXeo is not compatible with previous references"
+         </p></li>
+  <li><p>XC16-1021 &nbsp coff-ld.exe: BFD 2.14 20030612 internal error, 
+         aborting at ../build_20161122/src/acme/bfd/coff-pic30.c line 2233 in 
+         pic30_final_link</p></li>
+  <li><p>XC16-1033 &nbsp Update User Guide documentation: Two special operators 
+         cannot be used in an expression.</p></li>
+  <li><p>XC16-1053 &nbsp Update User Guide documentation:
+         __builtin_write_RTCC_WRLOCK() and __builtin_write_RTCWEN() are two 
+         different builtin functions and they do not replace each other.
+         </p></li>
+  <li><p>XC16-1056 &nbsp Correct the 'builtin_disable_interrupts' prototype in 
+         the compiler readme</p></li>
+  <li><p>XC16-1068 &nbsp Incorrect description of 'Use Local Stack' option in 
+         the compiler manual</p></li>
+  <li><p>XC16-1076 &nbsp Incorrect documentation of AIVTDIS</p></li>
+  <li><p>XC16-1077 &nbsp .aivt.AltT3Interrupt aivt table filled when AIVT is 
+         disabled.</p></li>
+  <li><p>XC16-1080 &nbsp Segmentation fault for incorrect configuration 
+         setting</p></li>
+  <li><p>XC16-1083 &nbsp Update User Guide documentation: Request to remove the 
+         reference of QUAD command from the Asm Link User guide.</p></li>
+  <li><p>XC16-1084 &nbsp Attributes on typedefs do not always convey properly 
+         to an object declaration</p></li>
+  <li><p>XC16-1095 &nbsp Incorrect code generation when using 
+         -menable-large-arrays</p></li>
+  <li><p>XC16-1099 &nbsp Incorrect result from fast-math pow</p></li>
+  <li><p>XC16-1100 &nbsp Zero extend of SI to P32EDS is incorrect.</p></li>
+  <li><p>XC16-1101 &nbsp Magic section names in linker causes fatal crash
+         </p></li>
+  <li><p>XC16-1102 &nbsp PA disturbs flow of some builtin patterns that need to 
+         be performed in sequence.</p></li>
+  <li><p>XC16-1103 &nbsp Update documentation for compiler options</p></li>
+  <li><p>XC16-1105 &nbsp PA Tool does not support CH devices ISA</p></li>
+  <li><p>XC16-1106 &nbsp unsigned 8bit*unsigned 8bit->32bit can get the 
+         incorrect answer if one of the values has bit 8 set</p></li>
+  <li><p>XC16-1107 &nbsp Documentation bug in XC16 compiler user's 
+         guide for scope of -Wall</p></li>
+  <li><p>XC16-1109 &nbsp Packedflash program memories do not get correct 
+         relocated data</p></li>
+  <li><p>XC16-1110 &nbsp ICE when compiling at -O3.</p></li>
+  <li><p>XC16-1111 &nbsp Const array not placed at user given address</p></li>
+  <li><p>XC16-1115 &nbsp Segmentation Fault when linking with 
+         --memory-usage</p></li>
+  <li><p>XC16-1116 &nbsp ICE when accessing struct in __external__ at 
+         -O1 or higher.</p></li>
+  <li><p>XC16-1122 &nbsp XC16 v1.33 builtin for NVM secure generates the 
+         wrong code.</p></li>
+  <li><p>XC16E-16 &nbsp Provide support for compiler-specific qualifiers in C99 
+         mode.</p></li>
+  <li><p>XC16E-19 &nbsp Update User Guide documentation: clarify "persistent" 
+         attribute()</p></li>
+  <li><p>XC16E-21 &nbsp Document the builtin "__builtin_write_DISICNT" in 
+         Compiler User Guide</p></li>
+  <li><p>XC16E-60 &nbsp Document optimize attribute in User guide.</p></li>
+  <li><p>XC16E-83 &nbsp Document _memcpy_eds, _strcpy_eds _strncpy_eds</p></li>
+  <li><p>XC16E-129 &nbsp Dynamically list supported generic devices</p></li>
+  <li><p>XC16E-130 &nbsp Option to suppress psrd_psrd XC16 linker 
+         checking/summary printing</p></li>
+  <li><p>XC16E-131 &nbsp Support Unnamed struct/union initialization in 
+         XC16</p></li>
+  <li><p>XC16E-154 &nbsp XC16E-130 Document linker option --no-psrd-psrd-check 
+         </p></li>
+</ul><p>
+<h2>   v1.33</h2>
+<ul>
+  <li><p>xc16-785 &nbsp Assignment of _Accum variable from long integer 
+         incorrect with rounding</p></li>
+  <li><p>xc16-789 &nbsp CPBEQ encoding not correct when branch to absolute 
+         address is out of range</p></li>
+  <li><p>xc16-928 &nbsp Incorrect config values on 24F08KA101</p></li>
+  <li><p>xc16-934 &nbsp Internal compiler error in find_reloads</p></li>
+  <li><p>xc16-956 &nbsp Internal compiler error for __prog__ pointer</p></li>
+  <li><p>xc16-961 &nbsp const qualified variables ignore section attribute</p>
+  </li>
+  <li><p>xc16-1002 &nbsp Linker crashes when absolute address at the end of a 
+         region is specified for an object</p></li>
+  <li><p>xc16-1005 &nbsp cannot initialize near __eds__ pointer to NULL</p></li>
+  <li><p>xc16-1017 &nbsp incorrect result from EDS pointer subtraction that 
+         crosses page boundary</p></li>
+  <li><p>xc16-1039 &nbsp dsPIC33EPXXXGS[78]0X devices missing DEVID info in 
+         device header file</p></li>
+  <li><p>xc16-1042 &nbsp Fix mchip_xc16_conifg.xml file for Coverity</p></li>
+  <li><p>xc16-1045 &nbsp 24FJXXXGA20X device support file contain incorrect 
+         settings for CONFIG2</p></li>
+  <li><p>xc16-1048 &nbsp macros for allocating ymemory in 33EP512MU814 
+         (and other) device header files need eds attribute</p></li>
+  <li><p>xc16-1052 &nbsp libq does not support 24HJ devices</p></li>
+  <li><p>xc16-1054 &nbsp build errors 'undefined reference to ___printf_s' when 
+         large-arrays and -merrata=all options are specified</p></li>
+  <li><p>xc16-1057 &nbsp build errors using snprintf when large-arrays and 
+         -merrata=all options are specified<</p></li>
+  <li><p>xc16-1061 &nbsp compiler does not generate bset when setting bit 15</p>
+  </li>
+  <li><p>xc16-1065 &nbsp Internal Compiler Error using __builtin_ACCx for 
+         devices without an accumulator</p></li>
+  <li><p>xc16-1067 &nbsp Internal Compiler Error in find_reloads</p></li>
+  <li><p>xc16-1069 &nbsp Internal Compiler Error using CORCON in inline 
+         assembly</p></li>
+  <li><p>xc16-1070 &nbsp Internal Compiler Error calling __builtin_mpy with 
+         invalid parameter</p></li>
+  <li><p>xc16-1071 &nbsp -msmart-io=0 does not print the right stuff for 
+         %lx</p></li>
+  <li><p>xc16-1074 &nbsp PIC24F devices missing libq functions</p></li>
+  <li><p>xc16-1075 &nbsp packed_flash sections cause conflict with RAM 
+         data</p></li>
+  <li><p>xc16-1078 &nbsp missing standard C routines for PIC24FDA devices using 
+         large-arrays and errata</p></li>
+  <li><p>xc16-1079 &nbsp xc16-objdump (elf-objdump) crashing doing 
+         --psrd-psrd-check for objects with 24-bit FLASH data values</p></li>
+  <li><p>xc16-1081 &nbsp Invalid code generated with -On</p></li>
+  <li><p>xc16E-14 &nbsp provide up-to-date link for free/pro mode comparion 
+         text</p></li>
+  <li><p>xc16E-81 &nbsp use &ltstdint.h&gt types in device support header 
+         files</p></li>
+</ul>
+
+<h2>   v1.32</h2>
+<ul>
+  <li><p>XC16-592 &nbsp Incorrect address of function parameter for __eds__ 
+         pointers</p></li>
+  <li><p>XC16-697 &nbsp Internal compiler error generated for functions with 
+         large stack-frames</p></li>
+  <li><p>XC16-845 &nbsp Internal compiler error generated for functions with 
+         large stack-frames</p></li>
+  <li><p>XC16-921 &nbsp Produce error message for incorrect usage of 
+         __builtin_edspage</p></li>
+  <li><p>XC16-962 &nbsp Internal compiler error generated for functions with 
+         large stack-frames</p></li>
+  <li><p>XC16-1023 &nbsp Invalid linker warning for invalid FBSLIM 
+         value</p></li>
+  <li><p>XC16-1025 &nbsp Provide more information about invalid FBSLIM 
+         values</p></li>
+  <li><p>XC16-1026 &nbsp __attribute__((boot)) functions not allocated in boot 
+         segment for devices with FBSLIM</p></li>
+  <li><p>XC16-1028 &nbsp Linker error allocating last AIVT slot for devices 
+         with movable AIVTs</p></li>
+  <li><p>XC16-1030 &nbsp Linker inapproriates allocate boot segment when none 
+         should be present</p></li>
+  <li><p>XC16-1031 &nbsp Internal compiler error generated for functions with 
+         large stack-frames</p></li>
+  <li><p>XC16-1047 &nbsp Linker not checking that sequentionally allocated 
+         sections are in bounds of specified region</p></li>
+  <li><p>XC16-1051 &nbsp Do not generate back-to-back data flash reads</p></li>
+</ul>
+
+<h2>   v1.31</h2>
+<ul>
+  <li><p>XC16-884 &nbsp Invalid code converting const qualified pointer from 
+         __prog__ qualified structures</p></li>
+  <li><p>XC16-957 &nbsp Internal compiler error optimizing __pack_upper_byte 
+         pointer</p></li>
+  <li><p>XC16-963 &nbsp Internal compiler error for invalid __builtin_sac 
+         operation</p></li>
+  <li><p>XC16-994 &nbsp Internal compiler error for undefined __builtin 
+         operation</p></li>
+  <li><p>XC16-1012 &nbsp --memory-usage does not generate correct ROM 
+         table</p></li>
+  <li><p>XC16-1013 &nbsp --memory-usage does not generate correct RAM 
+         table</p></li>
+  <li><p>XC16-1014 &nbsp mod by a power of two could generate more efficient 
+         code</p></li>
+  <li><p>XC16-1018 &nbsp _conditional_software_breakpoint prototype missing 
+         from legacy C library</p></li>
+  <li><p>XC16-1022 &nbsp Error copying mis-aligned EDS blocks using 
+         memcpy_eds</p></li>
+</ul>
+
+<h2>   v1.30</h2>
+<ul>
+  <li><p>XC16-981 &nbsp Linker crashes with BFD internal error for user created 
+      Interrupt functions with name similar to standard Interrupt except the 
+      first underscore.</p></li>
+  <li><p>XC16-966 &nbsp Symbols that look like vector names can cause the 
+      linker to crash.</p></li>
+  <li><p>XC16-959 &nbsp elf-ld crash in the code while trying to report that 
+      there is not enough memory in RAM</p></li>
+  <li><p>XC16-958 &nbsp Incorrect code generation with higher Optimizations 
+      (-Os), causes Address error trap in the attached code</p></li>
+  <li><p>XC16-955 &nbsp Make C libraries conform to the Busmaster errata.
+      </p></li>
+  <li><p>XC16-953 &nbsp Linker crashes when supplied with the --strip-all 
+      linker option.</p></li>
+  <li><p>XC16-951 &nbsp Internal compiler error for passing __psv__ or 
+      __prog__ pointer to __eds__ function.</p></li>
+  <li><p>XC16-950 &nbsp Compiler warns about __eds__ qualifier attached to 
+      valid declaration that has an eds attribute in declaration.</p></li>
+  <li><p>XC16-949 &nbsp Code Base and Code Length are incorrect in the 24EP 
+      linker script files.</p></li>
+  <li><p>XC16-947 &nbsp Provide a feature that prevents the toolchain from 
+      generating a vector table</p></li>
+  <li><p>XC16-946 &nbsp Code causes internal compiler error: Segmentation 
+      fault, when the deprecated attribute is used in typedef</p></li>
+  <li><p>XC16-945 &nbsp Fast floating point operation not supported for 
+      PIC24EP</p> </li>
+  <li><p>XC16-944 &nbsp Incorrect AIVT base on devices where the table base 
+      address is calculated from BSLIM</p></li>
+  <li><p>XC16-943 &nbsp Pragma config for FSEC are incorrectly encoded</p></li>
+  <li><p>XC16-940 &nbsp Floating aivt not allocated properly with --no-isr 
+      option.</p></li>
+  <li><p>XC16-938 &nbsp Linker crash when writing data to map file.</p></li>
+  <li><p>XC16-937 &nbsp Error in new __builtin_lacd and __builtin_sacd 
+      functions: erroneous assembly emitted</p></li>
+  <li><p>XC16-925 &nbsp Compiler crash because of EDS and PROG qualifier in 
+      PSV space.</p></li>
+  <li><p>XC16-922 &nbsp -Os optimization fails to generate efficient single 
+      instruction to set a bit in some cases.</p></li>
+  <li><p>XC16-553 &nbsp Fast floating point library has incomplete support for
+      24EP64GP206.</p></li>
+</ul>
+<h2>   v1.26</h2>
+<ul>
+  <li><p>XC16-408 &nbsp -ahln=extra.lst does not include source in assembly 
+         list file</p></li>
+  <li><p>XC16-739 &nbsp no code generated for builtins accessing ACCxx</p>
+         <p>Like other working registers, it is not safe to access the 
+            accumulators outside of the normal C flow.  New builtins have
+            been created to allow safe access to these registers</p>
+      </li>
+  <li><p>XC16-815 &nbsp Write-protect fuse settings via #pragma config 
+         occaisonally mis-encoded</p></li>
+  <li><p>XC16-833 &nbsp Encoding of fuse settings GSS and GWRP occaisonaly 
+         wrong</p></li>
+  <li><p>XC16-855 &nbsp Instruction scheduling stack pointer changes 
+         (via alloca) can cause data corruption</p></li>
+  <li><p>XC16-858 &nbsp Improved code generation for 16x16->32 
+         multiplies</p></li>
+  <li><p>XC16-861 &nbsp Error "cannot open linker script file ..."</p></lir
+  <li><p>XC16-863 &nbsp Internal compiler error using 
+         <tt>__builtin_add</tt>/<p></li>
+  <li><p>XC16-865 &nbsp <tt>__builtin_sac</tt> changes the CC but the compiler 
+         does not notice </p></li>
+  <li><p>XC16-866 &nbsp assembler error referencing symbol in <tt>auxpsv</tt> 
+         type section</p></li>
+  <li><p>XC16-867 &nbsp linker error referencing symbol in <tt>auxpsv</tt> type 
+         section</p></li>
+  <li><p>XC16-869 &nbsp compiler generates <tt>exch</tt> instruction even when 
+         asked not to</p></li>
+  <li><p>XC16-923 &nbsp some sign-extended arithmetic operators can over-write 
+         the input</p></li>
+</ul>
+
+<h2>   v1.25</h2>
+<ul>
+  <li><p>XC16-544 &nbsp ICE in reload_cse_simplify_operands for fixed-point 
+         types</p></li>
+  <li><p>XC16-561 &nbsp Error checking arguments for __builtin_addab, improved 
+         error reporting</p></li>
+  <li><p>XC16-604 &nbsp Too many operands ('movpag #edspage(cannot find symbol 
+         name),DSRPAG')</p></li>
+  <li><p>XC16-633 &nbsp %n format specifier does not work for sscanf()</p></li>
+  <li><p>XC16-680 &nbsp Incorrect output from atof() when 64-bit double format 
+         is used</p></li>
+  <li><p>XC16-765 &nbsp ICE in extract_insn</p></li>
+  <li><p>XC16-781 &nbsp snprintf() doesn't honour buffer length</p></li>
+  <li><p>XC16-784 &nbsp Unable to find spill register when compiled -O2, 
+         -O3</p></li>
+  <li><p>XC16-796 &nbsp Settings in '.Config_GCP' are not valid for target 
+         device 24FJ16MC102</p></li>
+  <li><p>XC16-799 &nbsp Linker allocates stack in extended data sapce even when 
+         --local-stack option is used</p></li>
+  <li><p>XC16-801 &nbsp Compiler re-orders instructions when Idle() macro is 
+         used</p></li>
+  <li><p>XC16-804 &nbsp memset() function copies incorrect value to array 
+         structures with optiization level -O1</p></li>
+  <li><p>XC16-806 &nbsp Address error trap due to wrong address value in 
+         __psv__ space pointer with optimization level -Os</p></li>
+  <li><p>XC16-809 &nbsp #pragma config BSLIM = 0x1FFF generates a 
+         warning</p></li>
+  <li><p>XC16-811 &nbsp Address error trap due to wrong pointer type 
+         dereference</p></li>
+  <li><p>XC16-812 &nbsp Link Error: invalid attributes for section</p></li>
+</ul>
+
+<h2>   v1.24</h2>
+<ul>
+  <li><p>XC16-98 &nbsp xc16-nm --size-sort displaying incorrect symbols 
+         sizes</p></li>
+
+  <li><p>XC16-356 &nbsp xc16-readelf can crash using the -w option</p></li>
+
+  <li><p>XC16-369 &nbsp The following error <tt>automatic generation of DSP 
+         instructions not yet supported; use <it>builtin function</it> 
+         instead</tt> is generated inappropriately</p></li>
+
+  <li><p>XC16-392 &nbsp xc16-ld emits warning <tt>changing the start of section 
+         __c30_signature by 1 byes</tt> inappropriately</p></li>
+
+  <li><p>XC16-393 &nbsp -mpa option can leaver around temporary .p 
+         files</p></li>
+
+  <li><p>XC16-399 &nbsp xc16-objdump -t does not print the size of 
+         symbols</p></li>
+
+  <li><p>XC16-416 &nbsp user defined auxiliary Flash section ommitted from the 
+         map file</p></li>
+
+  <li><p>XC16-565 &nbsp BFD errors with xc16-objdump -S</p></li>
+
+  <li><p>XC16-571 &nbsp Internal compiler error at -O3</p></li>
+
+  <li><p>XC16-587 &nbsp Undefined reference to _Q16mpy function</p></li>
+
+  <li><p>XC16-628 &nbsp Compiler generates illegal instruction 
+         <tt>mov #w0,w4</tt></p></li>
+
+  <li><p>XC16-679 &nbsp sscanf generates incorrect output for %f format 
+         specifier</p></li>
+
+  <li><p>XC16-681 &nbsp linker does not validate config word settings for 
+         #pragma config</p></li>
+
+  <li><p>XC16-688 &nbsp xc16-as freezes while trying to assemble code with 
+         circular symbol definitions</p></li>
+
+  <li><p>XC16-699 &nbsp BFD internal error in epic30_elf32.c</p></li>
+
+  <li><p>XC16-702 &nbsp Tool chain does not warn when inappropriately 
+         attempting to link -menable-large-arrays code with normal code</p></li>
+
+  <li><p>XC16-703 &nbsp compiler error when -menable-fixed is used without 
+         specifying a device with -mcpu</p></li>
+
+  <li><p>XC16-713 &nbsp with -menable-large-arrays %lu,%ld format specifiers 
+         give incorrect results</p></li>
+
+  <li><p>XC16-716 &nbsp build fails when using response files</p></li>
+
+  <li><p>XC16-718 &nbsp unable to find register to spill in class 
+         'W2REG32'</p></li>
+
+  <li><p>XC16-723 &nbsp string literals used to initialize an object in an 
+         explictly or implicitly named section should be in the same section as 
+         the object</p></li>
+
+  <li><p>XC16-728 &nbsp warning <tt>Negative offset for symbol</tt> generated 
+         too frequently</p></li>
+
+  <li><p>XC16-730 &nbsp PA-E0014 Error: Invalid operand</p></li>
+
+  <li><p>XC16-740 &nbsp libfastm functions not in .lib* sections which can cause
+         <tt>PC relative branch out of range</tt> linker errors</p></li>
+
+  <li><p>XC16-745 &nbsp <tt>#pragma config BSLIM = 0x1FFF</tt> causes link 
+         failure</p></li>
+
+  <li><p>XC16-746 &nbsp <tt>#pragma config BSLIM = 0x1FFF</tt> with AIVTEN 
+         enabled causes invalid program text allocation</p></li>
+
+  <li><p>XC16-749 &nbsp using memset with char sized variable does not properly 
+         set the top byte</p></li>
+
+  <li><p>XC16-751 &nbsp compiler keeps unnecessary prologue/epilogue 
+         instructions</p></li>
+
+  <li><p>XC16-753 &nbsp linking fail when GLD file name contains spaces</p></li>
+
+  <li><p>XC16-755 &nbsp -mconst-in-auxflash not placing consts in auxiliary 
+         flash</p></li>
+
+  <li><p>XC16-758 &nbsp different hex file after each clean and build on a 
+         Windows 8.1 64-bit system</p></li>
+
+  <li><p>XC16-759 &nbsp make the <tt>boot</tt> section be based upon the 
+         <tt>FBSLIM</tt> setting for appropriate devices</p></li>
+
+  <li><p>XC16-760 &nbsp the linker can allocate fuse settings at invalid 
+         addresses in some cases</p></li>
+
+  <li><p>XC16-761 &nbsp sections may overlap with custom linker scripts and the 
+         -mreserve option is used</p></li>
+
+  <li><p>XC16-766 &nbsp incorrect alignment for the same named sections from 
+         different files</p></li>
+
+  <li><p>XC16-767 &nbsp incorrect code generated for swap macro implemented 
+         with successive xor statements</p></li>
+
+  <li><p>XC16-770 &nbsp unable to find spill register in class 'W0REG'</p></li>
+
+  <li><p>XC16-771 &nbsp unrecognizable instruction with compiler options 
+         <tt>-O1 -mlarge-data -msmall-scalar -merrata=all</tt></p></li>
+
+</ul>
+
+<h2>   v1.22</h2>
+<ul>
+
+   <li><p>XC16-332 &nbsp Response files are not handled</p></li>
+   <li><p>XC16-438 &nbsp <tt>Internal compiler error: in int_mode_for_mode, at 
+         stor-layout.c:469</tt></p></li>
+   <li><p>XC16-556 &nbsp Secure builtin function 
+         <tt>__builtin_write_NVM_secure</tt> does not use paramters in the 
+         unlock sequence</p></li>
+   <li><p>XC16-562 &nbsp adding <tt>volatile</tt> qualifier to <tt>__eds__</tt> 
+         can generate invalid assembly</p></li>
+   <li><p>XC16-570 &nbsp <tt>DSWPAG</tt> not set form some <tt>__eds__</tt> 
+         writes</p></li>
+   <li><p>XC16-576 &nbsp <tt>internal compiler error: in output_84, at 
+         insn-output.c:698</tt></p></li>
+   <li><p>XC16-586 &nbsp internal compiler error when <tt>__external__</tt> 
+         write functions are not defined; this should generate an error 
+         message</p></li>
+   <li><p>XC16-601 &nbsp <tt>Internal compiler error: in size_binop_loc, at 
+         fold-const.c:2163</tt></p></li>
+   <li><p>XC16-618 &nbsp <tt>Incorrect increment of EDS variables with O1 level 
+         of optimization</p></li>
+   <li><p>XC16-624 &nbsp <tt>Link error: Cannot access symbol (symbol) at an 
+         odd address</tt> for certain assembly codes that intermix program text 
+         and program data in the same section</p></li>
+   <li><p>XC16-627 &nbsp Missing or out of place C code in disassembly for 
+         <tt>xc16-objdump -S</tt> generated disassembly listings</p></li>
+   <li><p>XC16-629 &nbsp Assembler reports invalid operand error when operand 
+         is a subtraction expression</p></li>
+   <li><p>XC16-631 &nbsp Incorrect code generated for volatile qualifier 
+         variable at -O2 and -O3</p></li>
+   <li><p>XC16-637 &nbsp <tt>internal compiler error: in output_84, at 
+         insn-output.c:698</tt></p></li>
+   <li><p>XC16-638 &nbsp Fill with a sequence of values does not fill all 
+         values</p></li>
+   <li><p>XC16-639 &nbsp <tt>internal compiler error: in extract_insn, at 
+         recog.c:2125</tt> for <tt>__builtin_dmaoffset</tt>; improve error 
+         checking</p></li>
+   <li><p>XC16-640 &nbsp Fortran 'common' type sections are not given unique 
+         section names with <tt>-fdata-sections</tt></p></li>
+   <li><p>XC16-642 &nbsp Compiler does not pass correct address when an array 
+         is written to external memory</p></li>
+   <li><p>XC16-647 &nbsp setjmp fails for dsPIC33EP devices</p></li>
+   <li><p>XC16-651 &nbsp compiler generates invalid code, assembler throws 
+         error <tt>Check operand #2. Register # must be even</tt></p></li>
+   <li><p>XC16-654 &nbsp Loop optimization transforms address space pointers 
+         incorrectly</p></li>
+   <li><p>XC16-657 &nbsp <tt>internal compiler error: in 
+         add_const_value_attribute, at dwarf2out.c:15506</tt></p></li>
+   <li><p>XC16-671 &nbsp <tt>internal compiler error: in 
+         reload_cse_simplify_operands, at postreload.c:403</tt></p></li>
+   <li><p>XC16-675 &nbsp Loop optimization transforms address space pointers 
+         incorrectly</p></li>
+   <li><p>XC16-676 &nbsp Register mis-allocation for certain bitfield 
+         accesses; compiler clobbers value that should be stored</p></li>
+   <li><p>XC16-678 &nbsp Compiler hangs compiling source code with 
+         optimization enabled</p></li>
+   <li><p>XC16-685 &nbsp <tt>sprintf()</tt> execution time is longer with 
+         XC16 v1.21</p></li>
+   <li><p>XC16-687 &nbsp compiler generates <tt>warning: Invalid interrupt 
+         vector names for device '24FJ256GA110' are:</tt> even when the vector 
+         names are valid</p></li>
+   <li><p>XC16-689 &nbsp With array size 8200 it builds fine, but for array 
+         size 8192 <tt>Link Error: Could not allocate data memory</tt> </p></li>
+   <li><p>XC16-690 &nbsp Invalid code generated for C OR operator applied to 
+         near value</p></li>
+
+</ul>
+
+<h2>   v1.21  </h2>
+<ul>
+
+  <li><p>XC16-254 &nbsp No C source code in disassembly listing </p> </li>
+  <li><p>XC16-314 &nbsp malloc fails to allocate memory provided that enough 
+         free memory is available </p> </li>
+  <li><p>XC16-534 &nbsp Linker generates warning "warning: cannot find entry 
+         symbol nd-group-start-group" with -fast-math option </p> </li>
+  <li><p>XC16-573 &nbsp Error building for debug with custom linker 
+         script </p> </li>
+  <li><p>XC16-581 &nbsp #define statements as part of SFR declarations in 
+         device header files cause autocomplete feature in IDE editor to fail 
+         to recognize bit field names associated with SFR variable </p> </li>
+  <li><p>XC16-583 &nbsp "scratch" registers used in some patterns not 
+         preserved in ISR functions </p> </li>
+  <li><p>XC16-584 &nbsp linker ignores debug reserved sections when part of the 
+         required range is not available </p> </li>
+  <li><p>XC16-585 &nbsp Attached code fails with -Os optimization </p> </li>
+  <li><p>XC16-588 &nbsp loop2 invariant issue with -O1 </p> </li>
+  <li><p>XC16-596 &nbsp #pragma config directives should be kept </p> </li>
+  <li><p>XC16-598 &nbsp Explorer 16 Demo Code is broken with the v1.20 (LCD 
+         display is affected), worked fine with v1.11 </p> </li>
+</ul>
+
+<h2>   v1.20  </h2>
+<ul>
+  <li><p>
+          XC16-207 &nbsp <tt>realloc()</tt> does not allocate memory if 
+                   argument 0 is NULL, as it should
+  </p></li>
+
+  <li><p>
+          XC16-267 &nbsp .word psvoffset(value) does not respect current 
+                   .fillupper directive
+  </p></li>
+
+  <li><p>
+          XC16-294 &nbsp Bad assembly generated; the assembler prefers
+                   constant addresses to be in hex (and the right size)
+  </p></li>
+
+  <li><p>
+          XC16-331 &nbsp Warning on definition of INT32_MIN in stdint.h
+  </p></li>
+
+  <li><p>
+          XC16-337 &nbsp Linker crashes with <tt>AT(symbol)</tt> expression
+                   when symbol is not defined
+  </p></li>
+
+  <li><p>
+          XC16-338 &nbsp InstrumentedTrace.h includes device support files
+                   with incorrect case
+  </p></li>
+
+  <li><p>
+          XC16-345 &nbsp Redefining <tt>__const_length</tt> using the 
+                   <tt>--defsym</tt> command line option causes assertion
+                   failure in linker
+  </p></li>
+
+  <li><p>
+          XC16-347 &nbsp compiler does not accept:
+          <pre>
+            __pack_upper_byte char foo[14] = "does not work";
+          </pre>
+  </p></li>
+
+  <li><p>
+          XC16-348 &nbsp Macros should be defined without final semicolon
+  </p></li>
+
+  <li><p>
+          XC16-350 &nbsp <tt>SET_AND_SAVE_CPU_IPL</tt> contain needless 
+                   unsigned/signed value conversions that upset lint like tools
+  </p></li>
+
+  <li><p>
+          XC16-352 &nbsp Use of <tt>memset</tt> causes internal compiler error
+  </p></li>
+
+  <li><p>
+          XC16-353 &nbsp Invalid assembly generate when using <tt>memset</tt>
+  </p></li>
+
+  <li><p>
+          XC16-357 &nbsp Internal compiler error (-O0) getting a 
+                   <tt>__eds__</tt> pointer of a static object
+  </p></li>
+
+  <li><p>
+          XC16-359 &nbsp Linker aborts when attempting to specify an invalid
+                   fixed address for an object in <tt>space(dma)</tt>
+  </p></li>
+
+  <li><p>
+          XC16-360 &nbsp Compiler misses an opportunity to generate widening
+                   multiply operation
+  </p></li>
+
+  <li><p>
+          XC16-363 &nbsp Missing guard around <tt>intmax_t</tt> in stdint.h
+  </p></li>
+
+  <li><p>
+          XC16-365 &nbsp Internal compiler error with <tt>memcpy</tt>
+  </p></li>
+
+  <li><p>
+          XC16-367 &nbsp Cannot allocate heap beyond 32K
+ 
+          </p>
+          <p>Allow the linker to allocate heap beyond 32K if the <tt>eds</tt>
+             attribute is added to the section flags and no other reference
+             to <tt>DSRPAG</tt> or <tt>DSWPAG</tt> exists
+  </p></li>
+
+  <li><p>
+          XC16-372 &nbsp DMA, including the operators and spaces, are not
+                   supported by PIC24EP128GP204
+          </p>
+          <p>This device supports DMA but has no special DPSRAM, we have
+             improved the error message to make that clear[er].
+  </p></li>
+
+  <li><p>
+          XC16-373 &nbsp Internal compiler error copying memory on EP devices
+  </p></li>
+
+  <li><p>
+          XC16-377 &nbsp Bad code at -Os under some "unnatural" operand
+                   circumstances (ie those which don't fit naturally into the
+                   machines operand types for <tt>mov.b</tt>)
+  </p></li>
+
+  <li><p>
+          XC16-379 &nbsp Internal compiler error in form_sum
+  </p></li>
+
+  <li><p>
+          XC16-391 &nbsp <tt>fillupper</tt> attribute is ignored
+  </p></li>
+
+  <li><p>
+          XC16-395 &nbsp Unreadable characters printed at the end of the
+                   error message for an invalid config value error message
+  </p></li>
+
+  <li><p>
+          XC16-402 &nbsp <tt>__XC__</tt> manifest constant not defined by
+                   XC16
+  </p></li>
+
+  <li><p>
+          XC16-404 &nbsp 
+  </p></li>
+
+  <li><p>
+          XC16-406 &nbsp Internal compiler error with long functions used with
+                   <tt>-ffunction-section</tt> option
+  </p></li>
+
+  <li><p>
+          XC16-442 &nbsp <tt>memset()</tt> sets only alternate memory locations
+                   at -Os
+  </p></li>
+
+  <li><p>
+          XC16-443 &nbsp Internal compiler error in build2_stat at -O3 and -O2
+  </p></li>
+
+  <li><p>
+          XC16-467 &nbsp Internal compiler error in extract_insn; for
+                         <tt>__builtin_write_DISICNT</tt>
+  </p></li>
+
+  <li><p>
+          XC16-474 &nbsp Invalid code generated when checking the div and mod
+                   result (modulus value gets corrupted)
+  </p></li>
+
+  <li><p>
+          XC16-478 &nbsp Internal compiler error when an <tt>__external__</tt>
+                   read/ or write function is missing
+  </p></li>
+
+  <li><p>
+          XC16-518 &nbsp ISR does not save all registers
+  </p></li>
+
+  <li><p>
+          XC16-528 &nbsp Scalar reduction optimizations (performed at higher
+                   optimizations) can clone functions, causing argument 
+                   transmission to fail
+                   
+  </p></li>
+</ul>
+
+<h2>   v1.11  </h2>
+<ul>
+  <li><p>
+         XC16-201 &nbsp Installer incorrectly updates the "output directory"
+         for MPLAB 8.
+  </p></li>
+  <li><p>
+         XC16-246 &nbsp <tt>__pack_upper_byte</tt> arithmetic can fail
+  </p></li>
+  <li><p>
+         XC16-247 &nbsp PA Tool does not support packedflash special operators
+  </p></li>
+  <li><p>
+         XC16-253 &nbsp Compiler always uses libraries for lib folder even with
+           <tt>-merrata</tt> is used
+         <p>Specifying <tt>-merrata</tt> will now implicitly pick libraries
+            from the errata library folder</p>
+  </p></li>
+  <li><p>
+         XC16-260 &nbsp <tt>call.l</tt> and <tt>goto.l</tt> encoding incorrect
+  </p></li>
+  <li><p>
+         XC16-261 &nbsp Undefined symbols in a link can cause -Map= option to
+           crash the linker (COFF)
+  </p></li>
+  <li><p>
+         XC16-260 &nbsp <tt>call.l</tt> and <tt>goto.l</tt> encoding incorrect
+  </p></li>
+  <li><p>
+         XC16-281 &nbsp Compiler does not properly access stack variables when
+           (a) the stack is located above the first 32K and (b) the access
+           does not fit in base+index addressing
+  </p></li>
+  <li><p>
+         XC16-287 &nbsp <tt>__eds__</tt> not respected multi-dimensional array
+           <tt>typedef</tt>
+  </p></li>
+  <li><p>
+         XC16-293 &nbsp ICE in emit_block_move_hints
+  </p></li>
+  <li><p>
+         XC16-301 &nbsp type cast <tt>long int</tt> to <tt>float</tt> causes
+           incorrect result when low word is 0x0000
+  </p></li>
+  <li><p>
+         XC16-304 &nbsp <tt>sscanf</tt> library function incorrectly parses
+           '0' to 0xFF using %u conversion specifier
+  </p></li>
+  <li><p>
+         XC16-305 &nbsp ICE in extract_insn
+  </p></li>
+  <li><p>
+         XC16-309 &nbsp ICE using packed arrays
+  </p></li>
+  <li><p>
+         XC16-320 &nbsp Incorrect address of local variable created on EP
+           type devcies when specifying <tt>__eds__</tt>
+  </p></li>
+  <li><p>
+         XC16-326 &nbsp Invalid "Memory region auxflash does not exist"
+           message reported
+  </p></li>
+  <li><p>
+         XC16-330 &nbsp "Error: Invalid value (n). Operand must be between
+           0 and 1023, inclusive" generated from compiler created assembly
+  </p></li>
+  <li><p>
+         XC16-335 &nbsp <tt>memcpy</tt> does not copy the struct members
+           correctly when the compiler chooses to copy the values piece-by-piece
+  </p></li>
+  <li><p>
+         XC16-336 &nbsp Initialization of <tt>auto</tt> aggregates fails for EP
+           devices
+  </p></li>
+
+</ul>
+
+<h2>   v1.10  </h2>
+
+<ul>
+  <li><p>XC16-159 &nbsp Installer does not properly update "Help" Locations
+         for MPLAB 8.</p></li>
+  <li><p>XC16-160 &nbsp Compiler ignores section name for named section
+         with address.</p></li>
+  <li><p>XC16-163 &nbsp Undefined reference to section name.</p></li>
+  <li><p>XC16-168 &nbsp Build faliure when "__builtin_psvpage" is used
+         in MPLABX.</p></li>
+  <li><p>XC16-173 &nbsp mktime does not work.</p></li>
+  <li><p>XC16-177 &nbsp __C30__ is defined when preprocessing
+         assembly files.</p></li>
+  <li><p>XC16-186 &nbsp assert.h is not ANSI compliant post v3.24.</p></li>
+  <li><p>XC16-190 &nbsp fopen() does not call open() using the simulator
+         or on silicon. Works as expected using -legacy-libc.</p></li>
+  <li><p>XC16-191 &nbsp Issue with mktime when th_year > 120.
+         Issue does not exist when using -legacy-libc.</p></li>
+  <li><p>XC16-193 &nbsp Locals displayed as "Out of Scope" when COFF
+         is used in MPLAB v8.85 or MPLABX v1.20.</p></li>
+  <li><p>XC16-194 &nbsp Run-time crash at -Os but not O2.</p></li>
+  <li><p>XC16-196 &nbsp Compiler does not work on OSX 10.5.</p></li>
+  <li><p>XC16-198 &nbsp Build does not fail when a heap is required
+         but not specified when using -legacy-libc.</p></li>
+  <li><p>XC16-200 &nbsp malloc and calloc fail on first try allocating
+         memory with certain sizes.</p></li>
+  <li><p>XC16-203 &nbsp ICE in the code which has statements as:
+         "TMR3=PR3-0x1".</p></li>
+  <li><p>XC16-206 &nbsp _dump_heap_info() is not linked.</p></li>
+  <li><p>XC16-277 &nbsp libq-coff.a is built in elf format causing
+         build failure when Q15 library is used in coff mode.</p></li>
+</ul>
+
+
+<h2>   v1.0  </h2>
+
+<ul>
+  <li><p>XC16-1 &nbsp Dwarf Error when reporting undefined function</p></li>
+  <li><p>XC16-3 &nbsp -legacy-libc causes BFD 2.14 Assertion failure</p></li>
+  <li><p>XC16-5 &nbsp Internal Compiler Error when compiling at -O3</p></li>
+  <li><p>XC16-6 &nbsp libfastm does not link on devices that do not have
+                      PSVPAG</p></li>
+  <li><p>XC16-7 &nbsp Internal Compiler Error when trying to report a compile
+                      time error</p></li>
+  <li><p>XC16-9 &nbsp __builtin_divmodsd occasionally loses the value in
+                      the remainder</p></li>
+  <li><p>XC16-10 &nbsp  error: unrecognizable insn accessing integer arrays
+                        in eds space on EP devices</p></li>
+  <li><p>XC16-11 &nbsp  Internal Compiler Error accessing __external__ objects
+                        with optimization enabled</p></li>
+  <li><p>XC16-12 &nbsp  Compiler generates relative branches to
+                        'weak' functions which may be over-ridden by another
+                        module</p></li>
+  <li><p>XC16-13 &nbsp  relocation truncated to fit linker error generated
+                        when taking the __eds__ address of a const array
+                        element located in PSV</p></li>
+  <li><p>XC16-14 &nbsp  Incorrect code generated for assigning the address of
+                        an object in eds space</p></li>
+  <li><p>XC16-15 &nbsp  Some DSP instructions not supported by the PA Tool
+                        </p></li>
+  <li><p>XC16-16 &nbsp  Internal Compiler Error assigning unsigned long int to
+                        union member</p></li>
+  <li><p>XC16-17 &nbsp  Compiler generates invalid instruction "mov.b #w1,w0"
+                        </p></li>
+  <li><p>XC16-20 &nbsp  Incorrect assembly code "sl w6,#16,w8" generated at
+                        higher optimization levels</p></li>
+  <li><p>XC16-21 &nbsp  save __attribute__ emitting word aligned errors with
+                        byte sized SFRs</p></li>
+  <li><p>XC16-22 &nbsp  Compiler mistakenly believes that __buitlin_divsd and
+                        __builtin_divud sets the 'Z' flag according to the
+                        normal rules of arithmetic</p></li>
+  <li><p>XC16-24 &nbsp  Argument 0 should an accumulator generated when
+                        argument 0 is an accumulator</p></li>
+  <li><p>XC16-25 &nbsp  Internal Compiler Error in int_mode_for_mode</p></li>
+  <li><p>XC16-43 &nbsp  legacy-libc sscanf not functioning properly with
+                        smart-io enabled</p></li>
+  <li><p>XC16-81 &nbsp  strtod() does not conform to C89</p></li>
+  <li><p>XC16-97 &nbsp  INT64_MAX is incorrectly defined in stding.h</p></li>
+  <li><p>XC16-102 &nbsp  Instrumented Trace crashes compiler</p></li>
+  <li><p>XC16-103 &nbsp  -merrata=psv_trap has no effect on generated code
+                         </p></li>
+  <li><p>XC16-104 &nbsp  printing %d and %ld integers is slower than it needs
+                         to be</p></li>
+</ul>
+
+</span>
+<li class="Heading0"><h1><a name="Limitations">
+Limitations
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+
+   <p>This section describes limitations of the product, and applicable 
+      workarounds when possible. For further assistance, 
+      contact <a href="#Support">Customer Support.</a></p>
+
+   <p>The current limitations are as follows:</p>
+<ul>
+
+<h3><u>   Assembler </u></h3>
+
+<li>  Arguments to the address() section attribute must be even.</li>
+
+<li>  The default section alignment is 2**1. Therefore the minimum
+     section length is 2 bytes in data memory, and 2 PC units
+     (3 bytes) in program memory.</li>
+
+<li>  BIN30-3/15741 - The .lcomm directive causes incorrect source line numbers
+             in the assembler listing file.</li>
+
+<li>  BIN30-8/21797 - The .align directive changes section alignment regardless
+             of max-skip.</li>
+
+<li>  BIN30-10/23306 - For COFF, the option -g (source debugging info)
+             does not work with any section other than .text.</li>
+
+
+<li>  BIN30-92 - Can't set breakpoints in pre-processed assembly file
+                 (COFF-only)</li>
+
+<li>  BIN30-101 - Multiple .equs to undefined symbol causes internal error
+                  in the assembler
+
+        <p>The following assembly statements will cause a failure:</p>
+<pre>
+..equ foo,bar
+..equ baz,foo
+..word baz
+</pre>
+
+        <p>In this example, bar is an undefined symbol, while foo and
+            baz are indirect references to bar. The second level of
+            indirection is causing the failure. The following sequences
+            work fine:</p>
+
+<pre>
+..equ foo,bar
+..word foo ; one level of indirection
+
+..equ bar,9
+..equ foo,bar
+..equ baz,foo
+..word baz ; two levels of indirection to a literal constant
+</pre>
+</li>
+
+<h3><u>   Compiler </u></h3>
+
+<li>  XC16-182 - STDIO with field width, ie %4.2i may omit leading spaces,
+          the legacy library can be used</li>
+
+<li>  XC16-284 - STDIO with 'L' long double modifier is not accepted, the
+          legacy library supports this feature</li>
+
+<li>  XC16-308 - Scanf is not re-entrant</li>
+
+<li>  XC16-229 - Variables qualified with the <tt>__pack_upper_byte</tt> keyword
+      are shown at a different address in the watch window of MPLAB IDE
+      and the map file.
+      <p> The debugger does not how to convert the virtual address of these
+          symbols into the real address. For more information, please refere 
+          to secton 7.8 PACKING DATA STORED IN FLASH in the compiler manual.</p>
+</li>
+
+<li>  Structures must be less than 4096 words in size. </li>
+
+<li>  Blocks of code (such as a conditional statement or loop) may
+      not exceed 32K program words. </li>
+
+<li>  Procedural Abstraction limitations:
+
+  <p>When the procedural abstraction optimization is enabled (using
+     the -mpa command-line option) inline assembly code must be
+     limited to valid machine instructions.</p>
+
+  <p>Invalid machine instructions, instruction sequences, or assembler
+     directives (sectioning directives, macros, include files, etc.)
+     must not be used. Invalid use will cause procedural abstraction
+     compilation stage to fail, inhibiting the creation of an output file.
+     </p></li>
+
+<li> Data placed in <tt>space(ymemory)</tt> with the section directives or
+     through legacy <tt>section(".ybss")</tt> or <tt>section(".ydata")</tt>
+     attributes may cause a link error.
+
+<li>  C30-11/28301 - No error for unsupported nested functions</li>
+
+<li>  C30-22/29063 - Multiple Copies of "traps.c" exist in the C30 folders and
+          they do not match</li>
+
+<li>  C30-59/26772 - With -g (generate debug info), compiler-generated assembly
+          for noload function switches back to .text before code for
+          function</li>
+
+<li>  C30-68/27206 - DWARF line table is missing entries for two level
+          abstracted code.</li>
+
+<li>  C30-172 - pa tool expects only labels to start at the beginning of a
+        line (column 0)</li>
+
+<li>  C30-287 - definitions in peripheral library include file generic.h may
+                conflict with project macros </li>
+
+<li>  C30-398 - 24-bit pointer types are not supported in debug format
+                (COFF and ELF) </li>
+
+<li>  C30-399 - long long types are not supported in COFF debug format </li>
+
+<li>  C30-980 - strncpy() cannot be called in separate objects files when
+                mixing -mlarge-arrays option (this should probably cause a
+                linker error)</li>
+
+<li>  C30-981 - Assignment of literal value to EDS pointer loads incorrect
+                address</li>
+
+
+<h3><u>   Linker </u></h3>
+
+
+<li>  BIN30-23/28952 - Multiple definition error with custom linker script
+
+             <p>If a linker script is modified to place the .text section
+             from one object file before all the others, multiple definition
+             errors can result. When this occurs the linker acts as if the
+             section was included twice. The workaround is to specify a full
+             pathname, or *, before the object file name:</p>
+
+<pre>
+             /*
+             ** User Code and Library Code
+             */
+             .text :
+             {
+                *(.init);
+                *(.user_init);
+                *(.handle);
+                *(.libc) *(.libm) *(.libdsp);  /* keep together in
+                                                  this order */
+                *(.lib*);
+                myfile.o(.text);   /* this form causes error */
+                *myfile.o(.text);  /* this form works OK */
+             } >program
+</pre></li>
+
+<li>  BIN30-178 - Linker does not validate object signatures across
+                  input files.
+
+       <p>The linker will not detect a mis-match of the
+          <tt>-mlarge-arrays</tt> option among input files. As a
+          work-around, place objects into a library before adding
+          them to the project.</p></li>
+
+<li>  BIN30-179 - Linker does not support initialized data sections
+                  larger than 64K. </li>
+
+<li>  XC16-745 - Linker does not accept #pragma config BSLIM = 0x1FFF
+ 
+      <p>The work-around, in this case, is to not specify <tt>#pragma config
+         BSLIM = 0x1FFF</tt> as this is the default value.  The linker will then
+         appropriately create no boot section.</p>
+      </li>
+
+<li>  XC16-746 - Linker does not properly reserve the entire page for the AIVT 
+         in devices where the AIVT is relocatable.
+
+      <p>For devices where the AIVT is relative to the BSLIM value, ie:</p>
+       
+         <pre>
+         #pragma config BSLIM = 0x1FFC
+         #pragma config AIVTEN = ENABLE
+         </pre>
+   
+      <p>is specified to enable the AIVT, the linker may allocate the program
+         text immediately following the vector table, which may cause the 
+         program to behave unpredictably.</p>
+      </li>
+
+
+<h3><u>   Libraries </u></h3>
+
+<li> XC16-182 - Issue with printf/sprintf format specifiers. </li>
+<li> XC16-192 - sscanf does not work with long long unsigned integer. </li>
+<li> XC16-649 - Linker script names cannot have spaces in them.</li>
+
+</ul>
+
+
+</span>
+<li class="Heading0"><h1><a name="EnvChanges">
+Environment Variables Modified
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+
+<p>This installation makes no changes to the way environment variables
+have been updated previously.</p>
+
+<p>Modified environment variables are identified as part of the
+installation procedure and are documented in the manuals.</p>
+
+</li>
+</span>
+<li class="Heading0"><h1><a name="Support">
+Customer Support
+</a></h1></li>
+<span style="font-size:10pt;font-weight:normal;">
+
+<br />
+        Microchip provides online support via our home page at:<br />
+        <a href="https://www.microchip.com">https://www.microchip.com</a>
+<br /> <br />
+        Technical support is available through the web site at:<br />
+        <a href="https://www.microchip.com/technical-support">https://www.microchip.com/technical-support</a>
+<br /> <br />
+        A forum for discussion of Microchip products and tools is
+        available at:<br />
+        <a href="https://www.microchip.com/forums">https://www.microchip.com/forums</a>
+<br /> <br />
+
+</span>
+</ol>
+</html>
