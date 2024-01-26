@@ -1,0 +1,7 @@
+
+excerpt from xc16-objdump (-h option):
+
+  3 foo           00000002  0000f000  007ff000
+                  CONTENTS, ALLOC, LOAD, EEDATA, ABSOLUTE
+
+total data memory used (should be 0):    0

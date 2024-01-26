@@ -1,0 +1,7 @@
+
+excerpt from xc16-objdump (-h option):
+
+foo 00000005 00000000 00000000
+
+
+total data memory used (should be 0):    0
